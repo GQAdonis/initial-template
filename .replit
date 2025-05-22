@@ -8,7 +8,7 @@ channel = "stable-24_05"
 run = ["sh", "-c", "yarn install"]
 
 [workflows]
-runButton = "Run"
+runButton = "PNPM Dev"
 
 [[workflows.workflow]]
 name = "Run"
@@ -25,6 +25,19 @@ args = "yarn dev"
 
 [[workflows.workflow]]
 name = "Run with PNPM"
+author = 9606277
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pnpm install"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pnpm dev"
+
+[[workflows.workflow]]
+name = "PNPM Dev"
 author = 9606277
 mode = "sequential"
 
