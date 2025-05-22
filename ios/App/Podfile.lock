@@ -1,0 +1,22 @@
+PODS:
+  - Capacitor (7.2.0):
+    - CapacitorCordova
+  - CapacitorCordova (7.2.0)
+
+DEPENDENCIES:
+  - "Capacitor (from `../../.yarn/unplugged/@capacitor-ios-virtual-289304e4f8/node_modules/@capacitor/ios`)"
+  - "CapacitorCordova (from `../../.yarn/unplugged/@capacitor-ios-virtual-289304e4f8/node_modules/@capacitor/ios`)"
+
+EXTERNAL SOURCES:
+  Capacitor:
+    :path: "../../.yarn/unplugged/@capacitor-ios-virtual-289304e4f8/node_modules/@capacitor/ios"
+  CapacitorCordova:
+    :path: "../../.yarn/unplugged/@capacitor-ios-virtual-289304e4f8/node_modules/@capacitor/ios"
+
+SPEC CHECKSUMS:
+  Capacitor: 03bc7cbdde6a629a8b910a9d7d78c3cc7ed09ea7
+  CapacitorCordova: 5967b9ba03915ef1d585469d6e31f31dc49be96f
+
+PODFILE CHECKSUM: 32604e2ebbb38e4b77fa25406928c35477498a35
+
+COCOAPODS: 1.16.2

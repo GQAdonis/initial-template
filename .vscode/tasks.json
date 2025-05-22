@@ -1,0 +1,76 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "tauri: build debug",
+            "type": "shell",
+            "command": "cargo",
+            "args": [
+                "build",
+                "--manifest-path",
+                "${workspaceFolder}/src-tauri/Cargo.toml"
+            ],
+            "problemMatcher": [
+                "$rustc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "capacitor: build ios",
+            "type": "shell",
+            "command": "npx",
+            "args": [
+                "cap",
+                "sync",
+                "ios"
+            ],
+            "dependsOn": [
+                "build web"
+            ],
+            "problemMatcher": [],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "capacitor: build android",
+            "type": "shell",
+            "command": "npx",
+            "args": [
+                "cap",
+                "sync",
+                "android"
+            ],
+            "dependsOn": [
+                "build web"
+            ],
+            "problemMatcher": [],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "build web",
+            "type": "shell",
+            "command": "yarn",
+            "args": [
+                "build"
+            ],
+            "problemMatcher": [
+                "$tsc"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+    ]
+}

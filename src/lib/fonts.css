@@ -1,0 +1,19 @@
+
+/* This is a placeholder for Proxima Nova font loading */
+/* In a production app, you would either self-host these fonts or use a font service */
+
+@font-face {
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    /* In a real app, you would point to an actual font file */
+    src: local('Arial Bold'), local('Arial-Bold');
+    /* Fallback to Arial as a system font similar to Proxima Nova */
+  }
+  
+  :root {
+    --font-roboto: 'Roboto', sans-serif;
+    --font-proxima-nova: 'Proxima Nova', Arial, sans-serif;
+  }
+  

@@ -1,0 +1,234 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug iOS App",
+            "type": "ios",
+            "request": "launch",
+            "program": "${workspaceFolder}/ios/App/App.xcworkspace",
+            "preLaunchTask": "capacitor: build ios",
+            "cwd": "${workspaceFolder}",
+            "deviceName": "iPhone",
+            "sourceMaps": true,
+            "webRoot": "${workspaceFolder}",
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/src/*",
+                "webpack:///./*": "${webRoot}/*"
+            },
+            "presentation": {
+                "hidden": false,
+                "group": "Capacitor",
+                "order": 1
+            }
+        },
+        {
+            "name": "Debug iOS Web Content",
+            "type": "webkit",
+            "request": "attach",
+            "port": 9222,
+            "url": "https://app/*",
+            "webRoot": "${workspaceFolder}",
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/src/*",
+                "webpack:///./*": "${webRoot}/*"
+            },
+            "presentation": {
+                "hidden": false,
+                "group": "Capacitor",
+                "order": 2
+            }
+        },
+        {
+            "name": "Debug Android App",
+            "type": "android",
+            "request": "launch",
+            "appSrcRoot": "${workspaceFolder}/android/app/src/main",
+            "apkFile": "${workspaceFolder}/android/app/build/outputs/apk/debug/app-debug.apk",
+            "preLaunchTask": "capacitor: build android",
+            "adbPort": 5037,
+            "autoStartADB": true,
+            "cwd": "${workspaceFolder}",
+            "presentation": {
+                "hidden": false,
+                "group": "Capacitor",
+                "order": 3
+            }
+        },
+        {
+            "name": "Debug Android Web Content",
+            "type": "chrome",
+            "request": "attach",
+            "port": 9222,
+            "url": "https://app/*",
+            "webRoot": "${workspaceFolder}",
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/src/*",
+                "webpack:///./*": "${webRoot}/*"
+            },
+            "presentation": {
+                "hidden": false,
+                "group": "Capacitor",
+                "order": 4
+            }
+        },
+        {
+            "name": "Launch via Yarn",
+            "request": "launch",
+            "runtimeArgs": [
+                "run",
+                "dev"
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "Debug React Frontend",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:1420",
+            "webRoot": "${workspaceFolder}",
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/src/*",
+                "webpack:///./~/*": "${webRoot}/node_modules/*",
+                "webpack:///./*": "${webRoot}/*",
+                "webpack:///*": "*"
+            },
+            "sourceMaps": true,
+            "userDataDir": "${workspaceFolder}/.vscode/chrome-debug-profile",
+            "runtimeArgs": [
+                "--disable-web-security",
+                "--user-data-dir=${workspaceFolder}/.vscode/chrome-debug-profile"
+            ]
+        },
+        {
+            "name": "Debug Tauri App (Rust)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/src-tauri/target/debug/one-app",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "sourceLanguages": ["rust"],
+            "sourceMap": {
+                "/rustc/*": "${env:HOME}/.rustup/toolchains/stable-*-apple-darwin/lib/rustlib/src/rust"
+            },
+            "preLaunchTask": "tauri: build debug"
+        },
+        {
+            "name": "Attach to Tauri App (Rust)",
+            "type": "lldb",
+            "request": "attach",
+            "pid": "${command:pickProcess}",
+            "sourceLanguages": ["rust"],
+            "sourceMap": {
+                "/rustc/*": "${env:HOME}/.rustup/toolchains/stable-*-apple-darwin/lib/rustlib/src/rust"
+            }
+        },
+        {
+            "name": "Debug Tauri Full-Stack",
+            "type": "chrome",
+            "request": "launch",
+            "preLaunchTask": "tauri: build debug",
+            "url": "http://localhost:1420",
+            "webRoot": "${workspaceFolder}",
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/src/*",
+                "webpack:///./*": "${webRoot}/*"
+            },
+            "sourceMaps": true,
+            "presentation": {
+                "hidden": false,
+                "group": "Tauri",
+                "order": 1
+            },
+            "userDataDir": "${workspaceFolder}/.vscode/chrome-debug-profile",
+            "runtimeArgs": [
+                "--disable-web-security",
+                "--user-data-dir=${workspaceFolder}/.vscode/chrome-debug-profile"
+            ]
+        },
+        {
+            "name": "Debug Deno AI Service",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "deno",
+            "runtimeArgs": [
+                "run",
+                "--inspect-brk",
+                "--allow-all",
+                "apps/ai-service/main.ts"
+            ],
+            "port": 9229,
+            "outputCapture": "std",
+            "env": {
+                "OPENAI_API_KEY": "${env:OPENAI_API_KEY}"
+            },
+            "presentation": {
+                "hidden": false,
+                "group": "AI Service",
+                "order": 1
+            }
+        },
+        {
+            "name": "Debug Deno AI Service (No Break)",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "deno",
+            "runtimeArgs": [
+                "run",
+                "--inspect",
+                "--allow-all",
+                "apps/ai-service/main.ts"
+            ],
+            "port": 9229,
+            "outputCapture": "std",
+            "env": {
+                "OPENAI_API_KEY": "${env:OPENAI_API_KEY}"
+            },
+            "presentation": {
+                "hidden": false,
+                "group": "AI Service",
+                "order": 2
+            }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Debug iOS Full-Stack",
+            "configurations": ["Debug iOS App", "Debug iOS Web Content"],
+            "presentation": {
+                "hidden": false,
+                "group": "Capacitor",
+                "order": 5
+            }
+        },
+        {
+            "name": "Debug Android Full-Stack",
+            "configurations": ["Debug Android App", "Debug Android Web Content"],
+            "presentation": {
+                "hidden": false,
+                "group": "Capacitor",
+                "order": 6
+            }
+        },
+        {
+            "name": "Debug Web App with AI Service",
+            "configurations": ["Launch via Yarn", "Debug Deno AI Service (No Break)"],
+            "presentation": {
+                "hidden": false,
+                "group": "AI Service",
+                "order": 3
+            },
+            "stopAll": true
+        }
+    ]
+}

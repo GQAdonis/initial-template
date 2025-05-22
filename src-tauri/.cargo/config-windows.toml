@@ -1,0 +1,13 @@
+# Windows-specific Cargo configuration
+
+[build]
+# Optimize for Windows builds
+rustflags = ["-C", "target-feature=+crt-static"]
+
+[target.x86_64-pc-windows-msvc]
+# Use static linking for Windows builds
+rustflags = ["-C", "target-feature=+crt-static"]
+
+# Ensure Windows paths are handled correctly
+[env]
+CARGO_ENCODED_RUSTFLAGS = { value = "-C target-feature=+crt-static", force = true }

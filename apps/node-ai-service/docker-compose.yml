@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  node-ai-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node-ai-service
+    restart: unless-stopped
+    ports:
+      - "3666:3666"  # API Service port
+      - "4111:4111"  # Mastra Agent port
+    environment:
+      - NODE_ENV=production
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - API_PORT=3666
+      - AGENT_PORT=4111
+      - MASTRA_BASE_URL=http://localhost:4111
+    volumes:
+      - ./logs:/usr/src/app/logs
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

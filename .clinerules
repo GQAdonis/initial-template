@@ -1,0 +1,9 @@
+# Rust Language Rules
+
+1. ALWAYS check with the context mcp server and the check the web using the tavily mcp server to get the latest api's and information before finalizing code generation. always.
+
+2. Check every bug fix twice for syntax and other errors.
+
+3. Always check for existing types that might do the job you need before creating new types.
+
+4. Always favor the simpler code solution, because Rust can be overly verbose.

@@ -1,0 +1,31 @@
+[package]
+name = "webserver"
+version = "0.1.0"
+edition = "2021"
+description = "Actix-web-based multithreaded web server for serving a React/Vite application"
+
+[features]
+default = []
+deno = ["deno_core", "deno_runtime", "num_cpus"]
+
+[dependencies]
+actix-web = { version = "4.5.1", features = ["macros", "compress", "cookies", "json", "websockets"] }
+actix-rt = "2.9.0"
+actix-cors = "0.7.0"
+tokio = { version = "1.45.0", features = ["full"] }
+tokio-stream = "0.1.14"
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+serde = { version = "1.0.188", features = ["derive"] }
+serde_json = "1.0.107"
+anyhow = "1.0.75"
+thiserror = "2.0.12"
+futures = "0.3.28"
+mime_guess = "2.0.4"
+clap = { version = "4.4.6", features = ["derive"] }
+dotenv = "0.15.0"
+
+# Deno integration (optional)
+deno_core = { version = "0.211.0", optional = true }
+deno_runtime = { version = "0.124.0", optional = true }
+num_cpus = { version = "1.16.0", optional = true }
