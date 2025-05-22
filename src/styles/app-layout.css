@@ -22,11 +22,21 @@ html, body, #root {
   text-align: left;
 }
 
-/* Message styling */
-.message-user, .message-assistant {
-  animation-duration: 0.3s;
-  animation-fill-mode: both;
-  animation-timing-function: ease-out;
+/* Chat layout container */
+.chat-layout-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Main content area */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* Custom scrollbar for chat */
@@ -47,14 +57,13 @@ html, body, #root {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Prometheus gradient background */
-.bg-prometheus-gradient {
-  background: linear-gradient(135deg, #ffdd00 0%, #ff5500 100%);
-}
-
 /* Fix for mobile layout */
 @media (max-width: 768px) {
   .app-container {
     height: 100%;
+  }
+  
+  .chat-layout-container {
+    height: 100vh;
   }
 }
