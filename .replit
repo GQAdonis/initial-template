@@ -1,0 +1,8 @@
+modules = ["nodejs-20", "rust-stable", "web", "bash"]
+run = "yarn install"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "yarn install"]
