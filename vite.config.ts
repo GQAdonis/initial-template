@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
 
 // @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST;
@@ -19,7 +18,7 @@ const customOutDir = process.env.VITE_OUT_DIR;
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-  plugins: [react(), tailwindcss()],
+  plugins: [react()],
 
   // Allow environment variables prefixed with VITE_, TAURI_, or CAPACITOR_
   envPrefix: ['VITE_', 'TAURI_', 'CAPACITOR_'],
