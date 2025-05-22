@@ -1,13 +1,9 @@
-import { ThemeProvider } from "./components/ThemeProvider";
-import ChatLayout from "./components/ChatLayout";
 import "./App.css";
 
 function App() {
-  return (
-    <ThemeProvider defaultTheme="light">
-      <ChatLayout />
-    </ThemeProvider>
-  );
+  // App component is now just a wrapper for styles
+  // The actual application structure is handled by the router in main.tsx
+  return null;
 }
 
 export default App;

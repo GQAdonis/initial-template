@@ -13,13 +13,11 @@ import {
 } from '@/components/ui/sidebar';
 import ChatUI from './ChatUI';
 import { useChatStore } from '@/stores/chat-store';
-import { useNavigationStore } from '@/stores/navigation-store';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 
 const ChatLayout = () => {
   const { chats, activeChat, setActiveChat, createChat } = useChatStore();
-  const { items, activeItem } = useNavigationStore();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -45,53 +43,17 @@ const ChatLayout = () => {
   };
 
   return (
-    <SidebarProvider defaultOpen={!isMobile}>
-      <div className="flex h-screen w-full overflow-hidden">
-        {/* Main Navigation Sidebar */}
-        <Sidebar collapsible="icon" variant="inset">
+    <div className="flex flex-1 h-full overflow-hidden">
+      {/* Chat Sidebar */}
+      <SidebarProvider defaultOpen={!isMobile}>
+        <Sidebar variant="floating" side="left">
           <SidebarHeader>
-            <div className="flex items-center justify-center h-16">
-              <img 
-                src="/logo.png" 
-                alt="Prometheus Logo" 
-                className="h-8 w-auto" 
-              />
+            <div className="flex items-center justify-between p-4">
+              <div className="flex items-center">
+                <h1 className="font-bold text-lg">Chat</h1>
+              </div>
             </div>
           </SidebarHeader>
-          <SidebarContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.id}>
-                  <SidebarMenuButton 
-                    isActive={activeItem === item.id}
-                    tooltip={item.name}
-                    onClick={() => useNavigationStore.getState().setActiveItem(item.id)}
-                  >
-                    <item.icon className="h-5 w-5" />
-                    <span>{item.name}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarContent>
-        </Sidebar>
-
-        {/* Chat Sidebar */}
-        <div className="flex flex-1 h-full overflow-hidden">
-          <SidebarProvider defaultOpen={!isMobile}>
-            <Sidebar variant="floating" side="left">
-              <SidebarHeader>
-                <div className="flex items-center justify-between p-4">
-                  <div className="flex items-center">
-                    <img 
-                      src="/logo.png" 
-                      alt="Prometheus Logo" 
-                      className="h-8 w-auto mr-2" 
-                    />
-                    <h1 className="font-bold text-lg tracking-wide">PROMETHEUS</h1>
-                  </div>
-                </div>
-              </SidebarHeader>
               <SidebarContent>
                 <div className="p-4">
                   <Button 
@@ -125,41 +87,25 @@ const ChatLayout = () => {
                   </SidebarMenu>
                 </div>
               </SidebarContent>
-              <SidebarFooter>
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton>
-                      <Settings size={18} className="text-gray-500" />
-                      <span>Settings</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </SidebarFooter>
-            </Sidebar>
+              {/* Footer removed as Settings is now in the main ApplicationContainer */}
+        </Sidebar>
 
-            {/* Main content */}
-            <div className="flex-1 flex flex-col h-full overflow-hidden">
-              {/* Mobile header */}
-              <div className="md:hidden flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-                <SidebarTrigger />
-                <div className="flex items-center">
-                  <img 
-                    src="/logo.png" 
-                    alt="Prometheus Logo" 
-                    className="h-8 w-auto"
-                  />
-                  <span className="ml-2 font-bold text-lg tracking-wide">PROMETHEUS</span>
-                </div>
-                <div className="w-8"></div> {/* Spacer for centering */}
-              </div>
-
-              {/* Chat UI */}
-              <ChatUI />
+        {/* Main content */}
+        <div className="flex-1 flex flex-col h-full overflow-hidden">
+          {/* Mobile header */}
+          <div className="md:hidden flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+            <SidebarTrigger />
+            <div className="flex items-center">
+              <span className="font-bold text-lg">Chat</span>
             </div>
-          </SidebarProvider>
+            <div className="w-8"></div> {/* Spacer for centering */}
+          </div>
+
+          {/* Chat UI */}
+          <ChatUI />
         </div>
-      </div>
-    </SidebarProvider>
+      </SidebarProvider>
+    </div>
   );
 };
 

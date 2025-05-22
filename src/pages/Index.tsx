@@ -1,5 +1,4 @@
 import { useLoaderData } from 'react-router-dom';
-import ChatLayout from '@/components/ChatLayout';
 
 interface IndexLoaderData {
   isTauriEnvironment: boolean;
@@ -13,7 +12,8 @@ const Index = () => {
   
   console.log('Index page loaded with data:', loaderData);
   
-  return <ChatLayout />;
+  // This component is now just a placeholder as ApplicationContainer is rendered at the App level
+  return null;
 };
 
 export default Index;

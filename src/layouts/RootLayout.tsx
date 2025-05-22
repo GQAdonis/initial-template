@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { CopilotKit } from "@copilotkit/react-core";
 import { isTauri } from "@/utils/platform";
+import ApplicationContainer from '@/components/ApplicationContainer';
 import "@/styles/app-layout.css";
 
 const RootLayout = () => {
@@ -16,7 +17,9 @@ const RootLayout = () => {
         agent="copilot-assistant"
       >
         <div className="app-container">
-          <Outlet />
+          <ApplicationContainer>
+            <Outlet />
+          </ApplicationContainer>
         </div>
         <Toaster />
         <Sonner />

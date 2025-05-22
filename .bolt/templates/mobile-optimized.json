@@ -1,0 +1,179 @@
+{
+  "id": "mobile-optimized",
+  "name": "Mobile-Optimized AI Application",
+  "description": "Mobile-focused application with touch-friendly UI and integrated AI capabilities",
+  "version": "1.0.0",
+  "features": [
+    {
+      "id": "touch-friendly-ui",
+      "name": "Touch-Friendly UI Components",
+      "description": "UI components optimized for touch interaction on mobile devices",
+      "required": true
+    },
+    {
+      "id": "capacitor-integration",
+      "name": "Capacitor Integration",
+      "description": "Integration with Capacitor for native mobile capabilities",
+      "required": true
+    },
+    {
+      "id": "ai-copilot",
+      "name": "AI Assistant Integration",
+      "description": "Built-in AI assistant using CoPilotKit",
+      "required": true
+    },
+    {
+      "id": "theme-support",
+      "name": "Light/Dark Theme Support",
+      "description": "Automatic and manual theme switching capabilities with mobile-optimized themes",
+      "required": true
+    },
+    {
+      "id": "state-management",
+      "name": "Zustand State Management",
+      "description": "Global state management with Zustand",
+      "required": true
+    },
+    {
+      "id": "offline-support",
+      "name": "Offline Support",
+      "description": "Capability to function with limited or no connectivity",
+      "required": false
+    },
+    {
+      "id": "responsive-animations",
+      "name": "Mobile-Optimized Animations",
+      "description": "Smooth animations optimized for mobile performance",
+      "required": true
+    }
+  ],
+  "fileStructure": {
+    "src": {
+      "description": "React application source code",
+      "components": {
+        "description": "Reusable UI components",
+        "mobile": {
+          "description": "Mobile-specific UI components"
+        }
+      },
+      "hooks": {
+        "description": "Custom React hooks that encapsulate business logic and state management"
+      },
+      "pages": {
+        "description": "Page-level components representing different screens"
+      },
+      "layouts": {
+        "description": "Layout components that define page structure"
+      },
+      "stores": {
+        "description": "Zustand stores for state management"
+      },
+      "types": {
+        "description": "TypeScript type definitions",
+        "capacitor-globals.d.ts": {
+          "description": "Type definitions for Capacitor global variables"
+        }
+      },
+      "utils": {
+        "description": "Utility functions and helpers",
+        "platform.ts": {
+          "description": "Platform detection utilities"
+        }
+      },
+      "lib": {
+        "description": "Shared libraries and configurations"
+      },
+      "styles": {
+        "description": "Global styles and CSS utilities",
+        "mobile-optimizations.css": {
+          "description": "Mobile-specific style optimizations"
+        }
+      },
+      "api": {
+        "description": "API integration layer"
+      }
+    },
+    "public": {
+      "description": "Static assets and files"
+    },
+    "android": {
+      "description": "Android-specific configuration and resources"
+    },
+    "ios": {
+      "description": "iOS-specific configuration and resources"
+    },
+    "docs": {
+      "description": "Project documentation and specifications"
+    },
+    "scripts": {
+      "description": "Build and development scripts"
+    }
+  },
+  "codeExamples": {
+    "componentStructure": "import React from 'react';\nimport { useTheme } from '../hooks/useTheme';\nimport { usePlatform } from '../hooks/usePlatform';\nimport type { ComponentProps } from '../types/component-types';\n\ninterface ExampleProps extends ComponentProps {\n  title: string;\n  description?: string;\n  onPress?: () => void;\n}\n\nexport function ExampleComponent({\n  title,\n  description,\n  className,\n  onPress,\n}: ExampleProps) {\n  const { theme } = useTheme();\n  const { isMobile, isIOS } = usePlatform();\n  \n  return (\n    <div \n      className={`touch-target ${className}`} \n      onClick={onPress}\n      role=\"button\"\n      tabIndex={0}\n    >\n      <h2>{title}</h2>\n      {description && <p>{description}</p>}\n    </div>\n  );\n}",
+    "platformUtils": "import { Capacitor } from '@capacitor/core';\n\nexport const isPlatform = {\n  /**\n   * Returns true if the app is running as a native mobile app\n   */\n  native: () => Capacitor.isNativePlatform(),\n  \n  /**\n   * Returns true if the app is running on iOS\n   */\n  ios: () => Capacitor.getPlatform() === 'ios',\n  \n  /**\n   * Returns true if the app is running on Android\n   */\n  android: () => Capacitor.getPlatform() === 'android',\n  \n  /**\n   * Returns true if the app is running in a web browser\n   */\n  web: () => Capacitor.getPlatform() === 'web',\n  \n  /**\n   * Returns true if the device is a mobile device (based on screen size and touch support)\n   * This works for both native and web platforms\n   */\n  mobile: () => {\n    const userAgent = navigator.userAgent || navigator.vendor || window.opera;\n    const isNative = Capacitor.isNativePlatform();\n    \n    if (isNative) return true;\n    \n    return /android|iPad|iPhone|iPod/i.test(userAgent) || \n           (window.innerWidth <= 768 && 'ontouchstart' in window);\n  }\n};",
+    "capacitorPlugin": "import { Capacitor, registerPlugin } from '@capacitor/core';\n\nexport interface StoragePlugin {\n  get(options: { key: string }): Promise<{ value: string | null }>;\n  set(options: { key: string; value: string }): Promise<void>;\n  remove(options: { key: string }): Promise<void>;\n}\n\nexport const Storage = registerPlugin<StoragePlugin>('Storage');\n\nexport async function getStoredData(key: string): Promise<string | null> {\n  try {\n    const { value } = await Storage.get({ key });\n    return value;\n  } catch (error) {\n    console.error('Error reading from storage:', error);\n    return null;\n  }\n}"
+  },
+  "dependencies": {
+    "frontend": [
+      "react",
+      "react-dom",
+      "zustand",
+      "zod",
+      "shadcn-ui",
+      "copilotkit",
+      "tailwindcss",
+      "@capacitor/core",
+      "@capacitor/ios",
+      "@capacitor/android"
+    ]
+  },
+  "devDependencies": {
+    "frontend": [
+      "vite",
+      "typescript",
+      "@types/react",
+      "@types/react-dom",
+      "postcss",
+      "autoprefixer",
+      "@capacitor/cli"
+    ]
+  },
+  "scripts": [
+    {
+      "name": "dev",
+      "command": "yarn dev",
+      "description": "Start the development server for web testing"
+    },
+    {
+      "name": "build",
+      "command": "yarn build",
+      "description": "Build the production web application"
+    },
+    {
+      "name": "cap:sync",
+      "command": "yarn cap sync",
+      "description": "Sync the web build with native platforms"
+    },
+    {
+      "name": "cap:build:ios",
+      "command": "yarn cap build ios",
+      "description": "Build the iOS application"
+    },
+    {
+      "name": "cap:build:android",
+      "command": "yarn cap build android",
+      "description": "Build the Android application"
+    },
+    {
+      "name": "cap:open:ios",
+      "command": "yarn cap open ios",
+      "description": "Open the iOS project in Xcode"
+    },
+    {
+      "name": "cap:open:android",
+      "command": "yarn cap open android",
+      "description": "Open the Android project in Android Studio"
+    }
+  ]
+}

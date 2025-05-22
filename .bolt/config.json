@@ -1,0 +1,59 @@
+{
+  "name": "prometheus-template",
+  "version": "1.0.0",
+  "description": "A comprehensive template for building beautiful, excellent generative AI applications",
+  "author": "Prometheus Team",
+  "license": "MIT",
+  "templates": [
+    {
+      "id": "react-tauri-ai",
+      "name": "React + Tauri + AI Application",
+      "description": "Full-stack application with React frontend, Tauri for cross-platform deployment, and integrated AI capabilities",
+      "tech": ["React 19", "Vite 6", "Zustand", "Zod", "Shadcn-UI", "CoPilotKit", "Tauri", "Rust"],
+      "type": "cross-platform"
+    },
+    {
+      "id": "web-only",
+      "name": "Web-Only AI Application",
+      "description": "Lightweight web application with integrated AI capabilities",
+      "tech": ["React 19", "Vite 6", "Zustand", "Zod", "Shadcn-UI", "CoPilotKit"],
+      "type": "web"
+    },
+    {
+      "id": "mobile-optimized",
+      "name": "Mobile-Optimized AI Application",
+      "description": "Mobile-focused application with touch-friendly UI and integrated AI capabilities",
+      "tech": ["React 19", "Vite 6", "Zustand", "Zod", "Shadcn-UI", "CoPilotKit", "Capacitor"],
+      "type": "mobile"
+    }
+  ],
+  "defaultTemplate": "react-tauri-ai",
+  "generation": {
+    "maxFileLength": 500,
+    "architecturalPattern": "CLEAN",
+    "validateWithContext7": true,
+    "useWebSearchForValidation": true,
+    "monitorPassesForRefactoring": 3
+  },
+  "codeStyles": {
+    "typescript": {
+      "noAny": true,
+      "strictTyping": true,
+      "componentStoreRule": "hooks-only"
+    },
+    "rust": {
+      "lineLimit": 30,
+      "unwrapPolicy": "avoid-in-production",
+      "intoPolicy": "clear-conversions-only",
+      "favorSimplicity": true
+    }
+  },
+  "ui": {
+    "designPatterns": "docs/UI_DESIGN_PATTERNS.md",
+    "specifications": "docs/FEATURE_SPECIFICATIONS.md",
+    "overview": "docs/PROMETHEUS_OVERVIEW.md",
+    "style": "simple-elegant-flat",
+    "responsive": true,
+    "animations": true
+  }
+}

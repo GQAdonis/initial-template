@@ -13,9 +13,11 @@ interface NavigationState {
   items: NavigationItem[];
   activeItem: string;
   sidebarExpanded: boolean;
+  isMobileView: boolean;
   setActiveItem: (id: string) => void;
   toggleSidebar: () => void;
   setSidebarExpanded: (expanded: boolean) => void;
+  setMobileView: (isMobile: boolean) => void;
 }
 
 export const useNavigationStore = create<NavigationState>()(
@@ -49,14 +51,19 @@ export const useNavigationStore = create<NavigationState>()(
       ],
       activeItem: 'chat',
       sidebarExpanded: true,
+      isMobileView: false,
       
       setActiveItem: (id) => set({ activeItem: id }),
       toggleSidebar: () => set((state) => ({ sidebarExpanded: !state.sidebarExpanded })),
-      setSidebarExpanded: (expanded) => set({ sidebarExpanded: expanded })
+      setSidebarExpanded: (expanded) => set({ sidebarExpanded: expanded }),
+      setMobileView: (isMobile) => set({ isMobileView: isMobile })
     }),
     {
       name: 'prometheus-navigation-storage',
-      partialize: (state) => ({ activeItem: state.activeItem, sidebarExpanded: state.sidebarExpanded }),
+      partialize: (state) => ({ 
+        activeItem: state.activeItem, 
+        sidebarExpanded: state.sidebarExpanded 
+      }),
     }
   )
 );

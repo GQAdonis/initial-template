@@ -1,0 +1,130 @@
+{
+  "id": "web-only",
+  "name": "Web-Only AI Application",
+  "description": "Lightweight web application with integrated AI capabilities",
+  "version": "1.0.0",
+  "features": [
+    {
+      "id": "responsive-ui",
+      "name": "Responsive Web UI",
+      "description": "Web-focused UI components that are responsive across different screen sizes",
+      "required": true
+    },
+    {
+      "id": "ai-copilot",
+      "name": "AI Assistant Integration",
+      "description": "Built-in AI assistant using CoPilotKit",
+      "required": true
+    },
+    {
+      "id": "theme-support",
+      "name": "Light/Dark Theme Support",
+      "description": "Automatic and manual theme switching capabilities",
+      "required": true
+    },
+    {
+      "id": "state-management",
+      "name": "Zustand State Management",
+      "description": "Global state management with Zustand",
+      "required": true
+    },
+    {
+      "id": "web-apis",
+      "name": "Modern Web APIs",
+      "description": "Integration with modern web APIs for enhanced functionality",
+      "required": false
+    }
+  ],
+  "fileStructure": {
+    "src": {
+      "description": "React application source code",
+      "components": {
+        "description": "Reusable UI components"
+      },
+      "hooks": {
+        "description": "Custom React hooks that encapsulate business logic and state management"
+      },
+      "pages": {
+        "description": "Page-level components representing different screens"
+      },
+      "layouts": {
+        "description": "Layout components that define page structure"
+      },
+      "stores": {
+        "description": "Zustand stores for state management"
+      },
+      "types": {
+        "description": "TypeScript type definitions"
+      },
+      "utils": {
+        "description": "Utility functions and helpers"
+      },
+      "lib": {
+        "description": "Shared libraries and configurations"
+      },
+      "styles": {
+        "description": "Global styles and CSS utilities"
+      },
+      "api": {
+        "description": "API integration layer"
+      }
+    },
+    "public": {
+      "description": "Static assets and files"
+    },
+    "docs": {
+      "description": "Project documentation and specifications"
+    },
+    "scripts": {
+      "description": "Build and development scripts"
+    }
+  },
+  "codeExamples": {
+    "componentStructure": "import React from 'react';\nimport { useTheme } from '../hooks/useTheme';\nimport type { ComponentProps } from '../types/component-types';\n\ninterface ExampleProps extends ComponentProps {\n  title: string;\n  description?: string;\n}\n\nexport function ExampleComponent({\n  title,\n  description,\n  className,\n}: ExampleProps) {\n  const { theme } = useTheme();\n  \n  return (\n    <div className={className}>\n      <h2>{title}</h2>\n      {description && <p>{description}</p>}\n    </div>\n  );\n}",
+    "storeSetup": "import { create } from 'zustand';\nimport { persist } from 'zustand/middleware';\n\ninterface AppState {\n  isLoading: boolean;\n  setLoading: (isLoading: boolean) => void;\n}\n\nexport const useAppStore = create<AppState>(\n  persist(\n    (set) => ({\n      isLoading: false,\n      setLoading: (isLoading: boolean) => set({ isLoading }),\n    }),\n    {\n      name: 'app-storage',\n    }\n  )\n);",
+    "apiClient": "import { z } from 'zod';\n\nconst ApiResponseSchema = z.object({\n  success: z.boolean(),\n  data: z.any().optional(),\n  error: z.string().optional(),\n});\n\ntype ApiResponse = z.infer<typeof ApiResponseSchema>;\n\nexport async function fetchData(endpoint: string): Promise<ApiResponse> {\n  try {\n    const response = await fetch(`/api/${endpoint}`);\n    const data = await response.json();\n    return ApiResponseSchema.parse(data);\n  } catch (error) {\n    return {\n      success: false,\n      error: error instanceof Error ? error.message : 'Unknown error occurred',\n    };\n  }\n}"
+  },
+  "dependencies": {
+    "frontend": [
+      "react",
+      "react-dom",
+      "zustand",
+      "zod",
+      "shadcn-ui",
+      "copilotkit",
+      "tailwindcss"
+    ]
+  },
+  "devDependencies": {
+    "frontend": [
+      "vite",
+      "typescript",
+      "@types/react",
+      "@types/react-dom",
+      "postcss",
+      "autoprefixer"
+    ]
+  },
+  "scripts": [
+    {
+      "name": "dev",
+      "command": "yarn dev",
+      "description": "Start the development server"
+    },
+    {
+      "name": "build",
+      "command": "yarn build",
+      "description": "Build the production application"
+    },
+    {
+      "name": "preview",
+      "command": "yarn preview",
+      "description": "Preview the built application locally"
+    },
+    {
+      "name": "lint",
+      "command": "yarn lint",
+      "description": "Run ESLint to check code quality"
+    }
+  ]
+}
