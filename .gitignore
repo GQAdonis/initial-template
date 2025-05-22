@@ -63,3 +63,6 @@ coverage/
 *.njsproj
 *.sln
 *.sw?
+
+# Tauri binaries
+src-tauri/binaries/
