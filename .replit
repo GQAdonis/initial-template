@@ -8,7 +8,6 @@ channel = "stable-24_05"
 run = ["sh", "-c", "yarn install"]
 
 [workflows]
-runButton = "PNPM Dev"
 
 [[workflows.workflow]]
 name = "Run"
