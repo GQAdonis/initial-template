@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, MessageSquare, Plus, Settings } from 'lucide-react';
+import { MessageSquare, Plus, Settings } from 'lucide-react';
 import { 
   Sidebar, 
   SidebarProvider, 
@@ -9,19 +9,17 @@ import {
   SidebarFooter,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar
+  SidebarMenuItem
 } from '@/components/ui/sidebar';
 import ChatUI from './ChatUI';
 import { useChatStore } from '@/stores/chat-store';
 import { useNavigationStore } from '@/stores/navigation-store';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
 
 const ChatLayout = () => {
   const { chats, activeChat, setActiveChat, createChat } = useChatStore();
-  const { items, activeItem, sidebarExpanded, toggleSidebar } = useNavigationStore();
+  const { items, activeItem } = useNavigationStore();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
