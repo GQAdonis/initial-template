@@ -1,11 +1,27 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import Sidebar from './Sidebar';
+import { Menu, X, MessageSquare, Plus, Settings } from 'lucide-react';
+import { 
+  Sidebar, 
+  SidebarProvider, 
+  SidebarTrigger,
+  SidebarContent,
+  SidebarHeader,
+  SidebarFooter,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar
+} from '@/components/ui/sidebar';
 import ChatUI from './ChatUI';
-import '@/styles/app-layout.css';
+import { useChatStore } from '@/stores/chat-store';
+import { useNavigationStore } from '@/stores/navigation-store';
+import { Button } from '@/components/ui/button';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 const ChatLayout = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { chats, activeChat, setActiveChat, createChat } = useChatStore();
+  const { items, activeItem, sidebarExpanded, toggleSidebar } = useNavigationStore();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -26,70 +42,126 @@ const ChatLayout = () => {
     };
   }, []);
 
-  // Close sidebar when clicking outside on mobile
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (isMobile && sidebarOpen) {
-        const target = e.target as HTMLElement;
-        if (!target.closest('.sidebar-container') && !target.closest('.sidebar-toggle')) {
-          setSidebarOpen(false);
-        }
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, [isMobile, sidebarOpen]);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
+  const handleNewChat = () => {
+    createChat();
   };
 
   return (
-    <div className="chat-layout-container">
-      {/* Overlay for mobile when sidebar is open */}
-      {isMobile && sidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-40"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
+    <SidebarProvider defaultOpen={!isMobile}>
+      <div className="flex h-screen w-full overflow-hidden">
+        {/* Main Navigation Sidebar */}
+        <Sidebar collapsible="icon" variant="inset">
+          <SidebarHeader>
+            <div className="flex items-center justify-center h-16">
+              <img 
+                src="/logo.png" 
+                alt="Prometheus Logo" 
+                className="h-8 w-auto" 
+              />
+            </div>
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarMenu>
+              {items.map((item) => (
+                <SidebarMenuItem key={item.id}>
+                  <SidebarMenuButton 
+                    isActive={activeItem === item.id}
+                    tooltip={item.name}
+                    onClick={() => useNavigationStore.getState().setActiveItem(item.id)}
+                  >
+                    <item.icon className="h-5 w-5" />
+                    <span>{item.name}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarContent>
+        </Sidebar>
 
-      {/* Sidebar */}
-      <div
-        className={`sidebar-container fixed md:relative z-50 h-full w-[280px] md:w-[280px] transition-all duration-300 ${
-          isMobile ? (sidebarOpen ? 'left-0' : '-left-[280px]') : 'left-0'
-        }`}
-      >
-        <Sidebar onClose={() => setSidebarOpen(false)} />
-      </div>
+        {/* Chat Sidebar */}
+        <div className="flex flex-1 h-full overflow-hidden">
+          <SidebarProvider defaultOpen={!isMobile}>
+            <Sidebar variant="floating" side="left">
+              <SidebarHeader>
+                <div className="flex items-center justify-between p-4">
+                  <div className="flex items-center">
+                    <img 
+                      src="/logo.png" 
+                      alt="Prometheus Logo" 
+                      className="h-8 w-auto mr-2" 
+                    />
+                    <h1 className="font-bold text-lg tracking-wide">PROMETHEUS</h1>
+                  </div>
+                </div>
+              </SidebarHeader>
+              <SidebarContent>
+                <div className="p-4">
+                  <Button 
+                    onClick={handleNewChat}
+                    variant="outline" 
+                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-medium flex items-center justify-center gap-2 border-none shadow-sm py-5"
+                  >
+                    <Plus size={18} />
+                    <span>New Chat</span>
+                  </Button>
+                </div>
+                <div className="px-4 py-2">
+                  <h2 className="text-sm font-semibold mb-3 text-gray-500">Recent chats</h2>
+                  <SidebarMenu>
+                    {chats.map((chat) => (
+                      <SidebarMenuItem key={chat.id}>
+                        <SidebarMenuButton
+                          isActive={activeChat === chat.id}
+                          onClick={() => setActiveChat(chat.id)}
+                        >
+                          <MessageSquare size={18} className="text-gray-500" />
+                          <div className="flex flex-col items-start">
+                            <span className="truncate">{chat.title}</span>
+                            <span className="text-xs text-gray-500">
+                              {format(new Date(chat.updatedAt), 'MM/dd/yyyy')}
+                            </span>
+                          </div>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </div>
+              </SidebarContent>
+              <SidebarFooter>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>
+                      <Settings size={18} className="text-gray-500" />
+                      <span>Settings</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarFooter>
+            </Sidebar>
 
-      {/* Main content */}
-      <div className="main-content flex-1 flex flex-col h-full overflow-hidden">
-        {/* Mobile header with menu toggle */}
-        <div className="md:hidden flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-          <button 
-            className="sidebar-toggle p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-            onClick={toggleSidebar}
-            aria-label="Toggle sidebar"
-          >
-            <Menu size={24} />
-          </button>
-          <div className="flex items-center">
-            <img 
-              src="/logo.png" 
-              alt="Prometheus Logo" 
-              className="h-8 w-auto"
-            />
-            <span className="ml-2 font-bold text-lg tracking-wide">PROMETHEUS</span>
-          </div>
-          <div className="w-8"></div> {/* Spacer for centering */}
+            {/* Main content */}
+            <div className="flex-1 flex flex-col h-full overflow-hidden">
+              {/* Mobile header */}
+              <div className="md:hidden flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+                <SidebarTrigger />
+                <div className="flex items-center">
+                  <img 
+                    src="/logo.png" 
+                    alt="Prometheus Logo" 
+                    className="h-8 w-auto"
+                  />
+                  <span className="ml-2 font-bold text-lg tracking-wide">PROMETHEUS</span>
+                </div>
+                <div className="w-8"></div> {/* Spacer for centering */}
+              </div>
+
+              {/* Chat UI */}
+              <ChatUI />
+            </div>
+          </SidebarProvider>
         </div>
-
-        {/* Chat UI */}
-        <ChatUI />
       </div>
-    </div>
+    </SidebarProvider>
   );
 };
 

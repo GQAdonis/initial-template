@@ -2,26 +2,29 @@ import { useState, useRef, useEffect } from 'react';
 import { Send, Loader } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-
-interface Message {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-}
+import { useChatStore } from '@/stores/chat-store';
 
 const ChatUI = () => {
+  const { chats, activeChat, addMessage, createChat } = useChatStore();
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      role: 'assistant',
-      content: 'Hello! I am Prometheus, your AI assistant. How can I help you today?'
-    }
-  ]);
   const [isLoading, setIsLoading] = useState(false);
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+
+  // Get the active chat or create a new one if none exists
+  useEffect(() => {
+    if (!activeChat && chats.length === 0) {
+      createChat("New Conversation");
+    } else if (!activeChat && chats.length > 0) {
+      useChatStore.getState().setActiveChat(chats[0].id);
+    }
+  }, [activeChat, chats, createChat]);
+
+  // Get messages for the active chat
+  const messages = activeChat 
+    ? chats.find(chat => chat.id === activeChat)?.messages || []
+    : [];
 
   useEffect(() => {
     // Scroll to bottom when messages change
@@ -36,28 +39,24 @@ const ChatUI = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!input.trim() || isLoading) return;
+    if (!input.trim() || isLoading || !activeChat) return;
     
     // Add user message
-    const userMessage: Message = {
-      id: Date.now().toString(),
+    addMessage(activeChat, {
       role: 'user',
       content: input
-    };
+    });
     
-    setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
     
     // Simulate AI response
     setTimeout(() => {
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
+      addMessage(activeChat, {
         role: 'assistant',
         content: `Thank you for your message. As Prometheus, I'm focused on helping you achieve growth. I've analyzed your request: "${input}" and would be happy to provide strategic guidance on this topic.`
-      };
+      });
       
-      setMessages(prev => [...prev, assistantMessage]);
       setIsLoading(false);
     }, 1000);
   };
@@ -159,7 +158,7 @@ const ChatUI = () => {
             />
             <Button
               type="submit"
-              disabled={!input.trim() || isLoading}
+              disabled={!input.trim() || isLoading || !activeChat}
               className="absolute bottom-2 right-2 h-10 w-10 p-0 rounded-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 transition-colors duration-200"
             >
               <Send className="h-5 w-5" />
