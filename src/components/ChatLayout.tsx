@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { MessageSquare, Plus, Settings } from 'lucide-react';
-import { 
-  Sidebar, 
-  SidebarProvider, 
+import { MessageSquare, Plus } from 'lucide-react';
+import {
+  Sidebar,
+  SidebarProvider,
   SidebarTrigger,
   SidebarContent,
   SidebarHeader,
-  SidebarFooter,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem

@@ -23,14 +23,12 @@ interface ApplicationContainerProps {
 }
 
 const ApplicationContainer = ({ children }: ApplicationContainerProps) => {
-  const { 
-    items, 
-    activeItem, 
-    setActiveItem, 
-    sidebarExpanded, 
+  const {
+    items,
+    activeItem,
+    setActiveItem,
+    sidebarExpanded,
     setSidebarExpanded,
-    toggleSidebar,
-    isMobileView,
     setMobileView
   } = useNavigationStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
