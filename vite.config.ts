@@ -44,14 +44,14 @@ export default defineConfig({
   },
   
   server: {
-    port: 4321,
+    port: 1420,
     strictPort: true,
     host: host || (isCapacitor ? '0.0.0.0' : false),
     hmr: host
       ? {
           protocol: "ws",
           host,
-          port: 4322,
+          port: 1421,
         }
       : undefined,
     watch: {

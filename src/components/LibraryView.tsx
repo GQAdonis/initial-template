@@ -9,7 +9,7 @@ const LibraryView = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <div className="h-full flex flex-col overflow-hidden">
+    <div className="h-full w-full flex flex-col overflow-hidden transition-all duration-300 ease-in-out">
       <div className="p-4 border-b">
         <h1 className="text-2xl font-bold mb-4">Library</h1>
         

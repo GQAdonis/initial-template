@@ -11,8 +11,8 @@ const HomeLayout = () => {
   };
 
   return (
-    <div className="flex flex-col h-full overflow-auto bg-white dark:bg-gray-900">
-      <div className="flex-1 overflow-y-auto">
+    <div className="flex flex-col h-full w-full overflow-auto bg-white dark:bg-gray-900">
+      <div className="flex-1 overflow-y-auto min-h-0">
         <div className="max-w-4xl mx-auto px-4 py-12 md:py-20">
           <div className="text-center mb-12">
             <svg 

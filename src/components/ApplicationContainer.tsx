@@ -62,10 +62,10 @@ const ApplicationContainer: React.FC<ApplicationContainerProps> = ({ children })
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="flex flex-col h-screen w-screen bg-gray-50 dark:bg-gray-900 overflow-hidden transition-all duration-300 ease-in-out">
       <Header toggleSidebar={toggleSidebar} />
       
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 min-h-0 w-full overflow-hidden transition-all duration-300 ease-in-out">
         {/* Sidebar navigation for desktop */}
         {!isMobileView && <Navigation />}
         
@@ -182,8 +182,10 @@ const ApplicationContainer: React.FC<ApplicationContainerProps> = ({ children })
         )}
         
         {/* Main content area */}
-        <main className="flex-1 overflow-hidden">
-          {children || renderContent()}
+        <main className="flex-1 overflow-auto min-w-0 relative transition-all duration-300 ease-in-out">
+          <div className="h-full w-full transition-all duration-300 ease-in-out">
+            {children || renderContent()}
+          </div>
         </main>
       </div>
       

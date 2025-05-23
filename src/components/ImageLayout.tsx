@@ -10,9 +10,9 @@ import ImageGenerationView from './ImageGenerationView';
  */
 const ImageLayout = () => {
   return (
-    <div className="flex flex-1 h-full overflow-hidden">
+    <div className="flex flex-1 h-full w-full overflow-hidden transition-all duration-300 ease-in-out">
       {/* Main content */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
+      <div className="flex-1 flex flex-col h-full w-full min-h-0 min-w-0 overflow-hidden transition-all duration-300 ease-in-out">
         {/* Image Generation UI */}
         <ImageGenerationView />
       </div>
