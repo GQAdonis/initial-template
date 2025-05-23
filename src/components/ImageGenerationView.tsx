@@ -6,31 +6,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { Download, Image as ImageIcon, RefreshCw, Sparkles } from 'lucide-react';
+import { useImagesStore } from '@/stores/images-store';
 
 const ImageGenerationView = () => {
   const [prompt, setPrompt] = useState('');
-  const [generating, setGenerating] = useState(false);
-  const [images, setImages] = useState<string[]>([]);
+  const [model, setModel] = useState('stable-diffusion');
+  const [size, setSize] = useState('512x512');
+  const { images, isGenerating, generateImage } = useImagesStore();
   
-  // Mock image generation
-  const generateImages = () => {
+  // Handle image generation
+  const handleGenerateImages = async () => {
     if (!prompt.trim()) return;
-    
-    setGenerating(true);
-    
-    // Simulate API call with timeout
-    setTimeout(() => {
-      // Mock image URLs (using placeholder images)
-      const mockImages = [
-        'https://placehold.co/512x512/4F46E5/FFFFFF?text=AI+Generated+1',
-        'https://placehold.co/512x512/4F46E5/FFFFFF?text=AI+Generated+2',
-        'https://placehold.co/512x512/4F46E5/FFFFFF?text=AI+Generated+3',
-        'https://placehold.co/512x512/4F46E5/FFFFFF?text=AI+Generated+4'
-      ];
-      
-      setImages(mockImages);
-      setGenerating(false);
-    }, 2000);
+    await generateImage(prompt, model, size);
   };
 
   return (
@@ -66,7 +53,10 @@ const ImageGenerationView = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Model</label>
-                    <Select defaultValue="stable-diffusion">
+                    <Select 
+                      value={model} 
+                      onValueChange={setModel}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Select model" />
                       </SelectTrigger>
@@ -80,7 +70,10 @@ const ImageGenerationView = () => {
                   
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Size</label>
-                    <Select defaultValue="512x512">
+                    <Select 
+                      value={size} 
+                      onValueChange={setSize}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Select size" />
                       </SelectTrigger>
@@ -112,10 +105,10 @@ const ImageGenerationView = () => {
                 <Button 
                   className="w-full" 
                   size="lg"
-                  disabled={!prompt.trim() || generating}
-                  onClick={generateImages}
+                  disabled={!prompt.trim() || isGenerating}
+                  onClick={handleGenerateImages}
                 >
-                  {generating ? (
+                  {isGenerating ? (
                     <>
                       <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
                       Generating...
@@ -133,12 +126,12 @@ const ImageGenerationView = () => {
               <div>
                 {images.length > 0 ? (
                   <div className="grid grid-cols-2 gap-4">
-                    {images.map((src, index) => (
-                      <Card key={index} className="overflow-hidden">
+                    {images.slice(0, 4).map((image) => (
+                      <Card key={image.id} className="overflow-hidden">
                         <CardContent className="p-0 relative group">
                           <img 
-                            src={src} 
-                            alt={`Generated image ${index + 1}`}
+                            src={image.imageUrl} 
+                            alt={image.title}
                             className="w-full h-auto"
                           />
                           <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
@@ -163,6 +156,45 @@ const ImageGenerationView = () => {
             </div>
           </TabsContent>
           
+          <TabsContent value="gallery" className="mt-0">
+            <div className="space-y-6">
+              <h2 className="text-xl font-semibold">Your Generated Images</h2>
+              
+              {images.length > 0 ? (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {images.map((image) => (
+                    <Card key={image.id} className="overflow-hidden">
+                      <CardContent className="p-0 relative group">
+                        <img 
+                          src={image.imageUrl} 
+                          alt={image.title}
+                          className="w-full h-auto aspect-square object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                          <Button size="icon" variant="secondary">
+                            <Download className="h-4 w-4" />
+                          </Button>
+                        </div>
+                        <div className="p-3">
+                          <h3 className="font-medium truncate">{image.title}</h3>
+                          <p className="text-sm text-muted-foreground truncate">{image.model}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center text-center p-8 border rounded-lg border-dashed">
+                  <ImageIcon className="h-12 w-12 text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-medium mb-2">Your Gallery is Empty</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Generate some images to see them here
+                  </p>
+                </div>
+              )}
+            </div>
+          </TabsContent>
+          
           <TabsContent value="image-to-image" className="mt-0">
             <div className="flex flex-col items-center justify-center text-center p-8 border rounded-lg border-dashed">
               <ImageIcon className="h-12 w-12 text-muted-foreground mb-4" />
@@ -173,16 +205,6 @@ const ImageGenerationView = () => {
               <Button>
                 Upload Image
               </Button>
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="gallery" className="mt-0">
-            <div className="flex flex-col items-center justify-center text-center p-8 border rounded-lg border-dashed">
-              <ImageIcon className="h-12 w-12 text-muted-foreground mb-4" />
-              <h3 className="text-lg font-medium mb-2">Your Gallery</h3>
-              <p className="text-sm text-muted-foreground mb-4">
-                Your generated images will appear here
-              </p>
             </div>
           </TabsContent>
         </Tabs>

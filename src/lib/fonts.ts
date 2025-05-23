@@ -1,4 +1,3 @@
-
 // This file would normally load fonts with Next.js font loaders
 // For this React app, we're using the fonts through CSS instead
 export const fontClasses = 'font-sans';

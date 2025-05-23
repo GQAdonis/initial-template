@@ -1,256 +1,194 @@
-import { useState, useEffect, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigationStore } from '@/stores/navigation-store';
+import Header from './Header';
+import Navigation from './Navigation';
 import ChatLayout from './ChatLayout';
+import HomeLayout from './HomeLayout';
 import LibraryView from './LibraryView';
-import ImageGenerationView from './ImageGenerationView';
-import SettingsView from './SettingsView';
-import { Outlet } from 'react-router-dom';
-import { Menu } from 'lucide-react';
-import { 
-  Sidebar, 
-  SidebarProvider, 
-  SidebarHeader,
-  SidebarContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarTrigger
-} from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
+import ImageLayout from './ImageLayout';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { X } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface ApplicationContainerProps {
-  children?: ReactNode;
+  children?: React.ReactNode;
 }
 
-const ApplicationContainer = ({ children }: ApplicationContainerProps) => {
-  const {
-    items,
-    activeItem,
-    setActiveItem,
-    sidebarExpanded,
-    setSidebarExpanded,
-    setMobileView
-  } = useNavigationStore();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const ApplicationContainer: React.FC<ApplicationContainerProps> = ({ children }) => {
+  const { activePath, isMobileView, setMobileView } = useNavigationStore();
+  const isMobileCheck = useIsMobile();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  // Update mobile view state when screen size changes
   useEffect(() => {
-    // Check if we're on mobile
-    const checkMobile = () => {
-      const isMobile = window.innerWidth < 768;
-      setMobileView(isMobile);
-      
-      // Auto-collapse sidebar on smaller screens
-      if (window.innerWidth < 1024 && sidebarExpanded) {
-        setSidebarExpanded(false);
-      }
-    };
+    setMobileView(!!isMobileCheck);
+  }, [isMobileCheck, setMobileView]);
 
-    // Initial check
-    checkMobile();
+  // Update the document title based on the active path
+  useEffect(() => {
+    // Find the active navigation item
+    const activeItem = useNavigationStore.getState().items.find(
+      (item) => item.path === activePath
+    );
+    
+    if (activeItem) {
+      document.title = `One - ${activeItem.name}`;
+    } else {
+      document.title = 'One';
+    }
+  }, [activePath]);
 
-    // Listen for window resize
-    window.addEventListener('resize', checkMobile);
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
-    // Cleanup
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, [setSidebarExpanded, setMobileView, sidebarExpanded]);
-
-  // Render the appropriate application based on the active item
-  const renderApplication = () => {
-    switch (activeItem) {
-      case 'chat':
+  // Render the appropriate content based on the active path
+  const renderContent = () => {
+    switch (activePath) {
+      case '/':
+        return <HomeLayout />;
+      case '/chat':
         return <ChatLayout />;
-      case 'library':
+      case '/library':
         return <LibraryView />;
-      case 'images':
-        return <ImageGenerationView />;
-      case 'settings':
-        return <SettingsView />;
+      case '/images':
+        return <ImageLayout />;
+      case '/settings':
+        return <div className="flex items-center justify-center h-full">Settings Content</div>;
       default:
-        return <Outlet />;
+        return <ChatLayout />;
     }
   };
 
-  // Mobile header with hamburger menu
-  const MobileHeader = () => (
-    <div className="md:hidden flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-      <Button 
-        variant="ghost" 
-        size="icon"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-      >
-        <Menu className="h-5 w-5" />
-      </Button>
-      <div className="flex items-center">
-        <img 
-          src="/logo.png" 
-          alt="Prometheus Logo" 
-          className="h-8 w-auto"
-        />
-        <span className="ml-2 font-bold text-lg tracking-wide">PROMETHEUS</span>
-      </div>
-      <div className="w-8"></div> {/* Spacer for centering */}
-    </div>
-  );
-
-  // Mobile bottom navigation
-  const MobileBottomNav = () => {
-    // If we have more than 4 items, we'll show the first 4 and put the rest in a "More" menu
-    const visibleItems = items.slice(0, 4);
-    const moreItems = items.length > 4 ? items.slice(4) : [];
-    const [moreMenuOpen, setMoreMenuOpen] = useState(false);
-
-    return (
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-background z-50">
-        <div className="flex justify-around items-center h-14">
-          {visibleItems.map((item) => (
-            <Button 
-              key={item.id}
-              variant="ghost" 
-              className={`flex flex-col items-center justify-center h-full w-full rounded-none border-none shadow-none ${
-                activeItem === item.id ? 'text-primary' : 'text-muted-foreground'
-              }`}
-              onClick={() => setActiveItem(item.id)}
-            >
-              <item.icon className="h-5 w-5" />
-              <span className="text-xs mt-1">{item.name}</span>
-            </Button>
-          ))}
-          
-          {moreItems.length > 0 && (
-            <div className="relative">
-              <Button 
-                variant="ghost" 
-                className={`flex flex-col items-center justify-center h-full w-full rounded-none border-none shadow-none ${
-                  moreItems.some(item => activeItem === item.id) ? 'text-primary' : 'text-muted-foreground'
-                }`}
-                onClick={() => setMoreMenuOpen(!moreMenuOpen)}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="1" />
-                  <circle cx="19" cy="12" r="1" />
-                  <circle cx="5" cy="12" r="1" />
-                </svg>
-                <span className="text-xs mt-1">More</span>
-              </Button>
-              
-              {moreMenuOpen && (
-                <div className="absolute bottom-full mb-2 right-0 bg-popover rounded-md shadow-md overflow-hidden min-w-[150px]">
-                  {moreItems.map((item) => (
-                    <Button 
-                      key={item.id}
-                      variant="ghost" 
-                      className={`flex items-center justify-start w-full px-4 py-2 text-sm ${
-                        activeItem === item.id ? 'bg-primary/10 text-primary' : 'text-popover-foreground'
-                      }`}
-                      onClick={() => {
-                        setActiveItem(item.id);
-                        setMoreMenuOpen(false);
-                      }}
-                    >
-                      <item.icon className="h-4 w-4 mr-2" />
-                      <span>{item.name}</span>
-                    </Button>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  };
-
   return (
-    <div className="flex h-screen w-full overflow-hidden">
-      {/* Desktop Navigation Sidebar */}
-      <div className="hidden md:flex">
-        <SidebarProvider defaultOpen={sidebarExpanded} open={sidebarExpanded} onOpenChange={setSidebarExpanded}>
-          <Sidebar collapsible="icon" variant="inset">
-            <SidebarHeader>
-              <div className="flex items-center justify-between h-16 px-2">
-                <img 
-                  src="/logo.png" 
-                  alt="Prometheus Logo" 
-                  className="h-8 w-auto" 
-                />
-                <SidebarTrigger className="ml-auto" />
-              </div>
-            </SidebarHeader>
-            <SidebarContent className="px-2">
-              <SidebarMenu>
-                {items.map((item) => (
-                  <SidebarMenuItem key={item.id}>
-                    <SidebarMenuButton 
-                      isActive={activeItem === item.id}
-                      tooltip={item.name}
-                      onClick={() => setActiveItem(item.id)}
-                      className={`border-none shadow-none ${activeItem === item.id ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-muted/50'} rounded-md transition-colors`}
-                    >
-                      <item.icon className="h-5 w-5" />
-                      <span>{item.name}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarContent>
-          </Sidebar>
-        </SidebarProvider>
-      </div>
-
-      {/* Mobile Sidebar (hidden by default, shown when hamburger menu is clicked) */}
-      <div className="md:hidden">
-        <SidebarProvider defaultOpen={false} open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-          <Sidebar variant="floating" side="left">
-            <SidebarHeader>
-              <div className="flex items-center p-4">
-                <img 
-                  src="/logo.png" 
-                  alt="Prometheus Logo" 
-                  className="h-8 w-auto mr-2" 
-                />
-                <h1 className="font-bold text-lg tracking-wide">PROMETHEUS</h1>
-              </div>
-            </SidebarHeader>
-            <SidebarContent className="px-2">
-              <SidebarMenu>
-                {items.map((item) => (
-                  <SidebarMenuItem key={item.id}>
-                    <SidebarMenuButton 
-                      isActive={activeItem === item.id}
-                      onClick={() => {
-                        setActiveItem(item.id);
-                        // Close sidebar after selection on mobile
-                        setIsMenuOpen(false);
-                      }}
-                      className={`border-none shadow-none ${activeItem === item.id ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-muted/50'} rounded-md transition-colors`}
-                    >
-                      <item.icon className="h-5 w-5" />
-                      <span>{item.name}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarContent>
-          </Sidebar>
-        </SidebarProvider>
-      </div>
-
-      {/* Application Content */}
-      <div className="flex-1 h-full overflow-hidden flex flex-col">
-        {/* Mobile Header */}
-        <MobileHeader />
+    <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-900">
+      <Header toggleSidebar={toggleSidebar} />
+      
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar navigation for desktop */}
+        {!isMobileView && <Navigation />}
         
-        {/* Main Content */}
-        <div className="flex-1 overflow-hidden md:pb-0 pb-16">
-          {children || renderApplication()}
-        </div>
+        {/* Mobile slide-out sidebar */}
+        {isMobileView && (
+          <>
+            {/* Overlay */}
+            {sidebarOpen && (
+              <div 
+                className="fixed inset-0 bg-black bg-opacity-50 z-20"
+                onClick={toggleSidebar}
+              />
+            )}
+            
+            {/* Slide-out sidebar */}
+            <div 
+              className={cn(
+                "fixed inset-y-0 left-0 w-3/4 max-w-xs bg-white dark:bg-gray-900 z-30 transform transition-transform duration-300 ease-in-out",
+                sidebarOpen ? "translate-x-0" : "-translate-x-full"
+              )}
+            >
+              <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
+                <div className="flex items-center">
+                  <svg 
+                    width="24" 
+                    height="24" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 mr-2"
+                  >
+                    {/* Simple placeholder logo - replace with actual logo SVG */}
+                    <path 
+                      d="M12 2L2 7L12 12L22 7L12 2Z" 
+                      fill="currentColor" 
+                      stroke="currentColor" 
+                      strokeWidth="1.5" 
+                    />
+                    <path 
+                      d="M2 17L12 22L22 17" 
+                      stroke="currentColor" 
+                      strokeWidth="1.5" 
+                    />
+                    <path 
+                      d="M2 12L12 17L22 12" 
+                      stroke="currentColor" 
+                      strokeWidth="1.5" 
+                    />
+                  </svg>
+                  <h1 className="font-bold text-lg tracking-wide">ONE</h1>
+                </div>
+                <button 
+                  onClick={toggleSidebar}
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              
+              <div className="flex flex-col h-full justify-between py-4">
+                <div className="space-y-1 px-2">
+                  {useNavigationStore.getState().items.filter(item => item.path !== '/settings').map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => {
+                          useNavigationStore.getState().setActivePath(item.path);
+                          toggleSidebar();
+                        }}
+                        className={cn(
+                          "flex items-center w-full rounded-lg px-3 py-2 transition-colors",
+                          activePath === item.path
+                            ? "bg-yellow-100 dark:bg-yellow-900/20 text-yellow-500"
+                            : "text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-300"
+                        )}
+                      >
+                        <Icon className="h-5 w-5 flex-shrink-0" />
+                        <span className="ml-3 truncate">{item.name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+                
+                {/* Settings pinned to bottom */}
+                <div className="px-2 mt-auto border-t border-gray-200 dark:border-gray-800 pt-4">
+                  {useNavigationStore.getState().items.filter(item => item.path === '/settings').map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => {
+                          useNavigationStore.getState().setActivePath(item.path);
+                          toggleSidebar();
+                        }}
+                        className={cn(
+                          "flex items-center w-full rounded-lg px-3 py-2 transition-colors",
+                          activePath === item.path
+                            ? "bg-yellow-100 dark:bg-yellow-900/20 text-yellow-500"
+                            : "text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-300"
+                        )}
+                      >
+                        <Icon className="h-5 w-5 flex-shrink-0" />
+                        <span className="ml-3 truncate">{item.name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </>
+        )}
         
-        {/* Mobile Bottom Navigation */}
-        <MobileBottomNav />
+        {/* Main content area */}
+        <main className="flex-1 overflow-hidden">
+          {children || renderContent()}
+        </main>
       </div>
+      
+      {/* Bottom navigation for mobile */}
+      {isMobileView && <Navigation />}
+      
+      {/* Add padding at the bottom on mobile to account for the navigation bar */}
+      {isMobileView && <div className="h-16" />}
     </div>
   );
 };

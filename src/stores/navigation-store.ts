@@ -1,69 +1,46 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { MessageSquare, BookOpen, Image, Settings } from 'lucide-react';
+import { Home, MessageSquare, BookOpen, Image, Settings } from 'lucide-react';
+import { v4 as uuidv4 } from 'uuid';
 
-export type NavigationItem = {
+// Define the types for our navigation items
+interface NavigationItem {
   id: string;
-  name: string;
-  icon: React.ComponentType<{ className?: string }>;
   path: string;
-};
+  name: string;
+  icon: typeof MessageSquare;
+}
 
+// Define the store state
 interface NavigationState {
   items: NavigationItem[];
-  activeItem: string;
+  activePath: string;
   sidebarExpanded: boolean;
   isMobileView: boolean;
-  setActiveItem: (id: string) => void;
+  setActivePath: (path: string) => void;
   toggleSidebar: () => void;
-  setSidebarExpanded: (expanded: boolean) => void;
   setMobileView: (isMobile: boolean) => void;
 }
 
-export const useNavigationStore = create<NavigationState>()(
-  persist(
-    (set) => ({
-      items: [
-        {
-          id: 'chat',
-          name: 'Chat',
-          icon: MessageSquare,
-          path: '/'
-        },
-        {
-          id: 'library',
-          name: 'Library',
-          icon: BookOpen,
-          path: '/library'
-        },
-        {
-          id: 'images',
-          name: 'Images',
-          icon: Image,
-          path: '/images'
-        },
-        {
-          id: 'settings',
-          name: 'Settings',
-          icon: Settings,
-          path: '/settings'
-        }
-      ],
-      activeItem: 'chat',
-      sidebarExpanded: true,
-      isMobileView: false,
-      
-      setActiveItem: (id) => set({ activeItem: id }),
-      toggleSidebar: () => set((state) => ({ sidebarExpanded: !state.sidebarExpanded })),
-      setSidebarExpanded: (expanded) => set({ sidebarExpanded: expanded }),
-      setMobileView: (isMobile) => set({ isMobileView: isMobile })
-    }),
-    {
-      name: 'prometheus-navigation-storage',
-      partialize: (state) => ({ 
-        activeItem: state.activeItem, 
-        sidebarExpanded: state.sidebarExpanded 
-      }),
-    }
-  )
-);
+// Create the store
+export const useNavigationStore = create<NavigationState>((set) => ({
+  // Initial navigation items
+  items: [
+    { id: uuidv4(), path: '/', name: 'Home', icon: Home },
+    { id: uuidv4(), path: '/chat', name: 'Chat', icon: MessageSquare },
+    { id: uuidv4(), path: '/library', name: 'Library', icon: BookOpen },
+    { id: uuidv4(), path: '/images', name: 'Images', icon: Image },
+    { id: uuidv4(), path: '/settings', name: 'Settings', icon: Settings },
+  ],
+  // Default active path
+  activePath: '/',
+  // Default sidebar state
+  sidebarExpanded: true,
+  // Default mobile view state
+  isMobileView: false,
+  // Set active path
+  setActivePath: (path) => set({ activePath: path }),
+  // Toggle sidebar
+  toggleSidebar: () => set((state) => ({ sidebarExpanded: !state.sidebarExpanded })),
+  // Set mobile view
+  setMobileView: (isMobile) => set({ isMobileView: isMobile }),
+}));

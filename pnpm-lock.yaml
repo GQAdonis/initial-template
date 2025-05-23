@@ -28,7 +28,7 @@ dependencies:
     version: 5.0.1(react-hook-form@7.56.4)
   '@mastra/client-js':
     specifier: ^0.10.0
-    version: 0.10.0(@mastra/core@0.10.0)(zod@3.25.20)
+    version: 0.10.0(@mastra/core@0.10.0)(zod@3.25.21)
   '@radix-ui/react-accordion':
     specifier: ^1.2.11
     version: 1.2.11(@types/react-dom@19.1.5)(@types/react@19.1.5)(react-dom@19.1.0)(react@19.1.0)
@@ -190,7 +190,7 @@ dependencies:
     version: 1.1.2(@types/react-dom@19.1.5)(@types/react@19.1.5)(react-dom@19.1.0)(react@19.1.0)
   zod:
     specifier: ^3.25.20
-    version: 3.25.20
+    version: 3.25.21
   zustand:
     specifier: ^4.5.2
     version: 4.5.7(@types/react@19.1.5)(react@19.1.0)
@@ -257,7 +257,7 @@ packages:
       rxjs: 7.8.1
       untruncate-json: 0.0.1
       uuid: 11.1.0
-      zod: 3.25.20
+      zod: 3.25.21
     dev: false
 
   /@ag-ui/client@0.0.28:
@@ -271,21 +271,21 @@ packages:
       rxjs: 7.8.1
       untruncate-json: 0.0.1
       uuid: 11.1.0
-      zod: 3.25.20
+      zod: 3.25.21
     dev: false
 
   /@ag-ui/core@0.0.27:
     resolution: {integrity: sha512-I8i0qsamIVaOhPZ11bz7a+JQ7DIwIhLCon2EYWHikgcLiWzfZNBJhlVBR6Fn29tv3Ost4p6wYWQy84WzAhjJ+Q==}
     dependencies:
       rxjs: 7.8.1
-      zod: 3.25.20
+      zod: 3.25.21
     dev: false
 
   /@ag-ui/core@0.0.28:
     resolution: {integrity: sha512-2Vjuxl0gE8E2RFjFccGZNczDw3Xqxve/EfoYRVAFNX3+rY7z64Mj0OWDw5p9L+X8UG0/+t0xYIquQpw7B4NdHA==}
     dependencies:
       rxjs: 7.8.1
-      zod: 3.25.20
+      zod: 3.25.21
     dev: false
 
   /@ag-ui/encoder@0.0.27:
@@ -316,7 +316,7 @@ packages:
       '@bufbuild/protobuf': 2.4.0
     dev: false
 
-  /@ai-sdk/provider-utils@2.2.8(zod@3.25.20):
+  /@ai-sdk/provider-utils@2.2.8(zod@3.25.21):
     resolution: {integrity: sha512-fqhG+4sCVv8x7nFzYnFo19ryhAa3w096Kmc3hWxMQfW/TubPOmt3A6tYZhl4mUfQWWQMsuSkLrtjlWuXBVSGQA==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -325,7 +325,7 @@ packages:
       '@ai-sdk/provider': 1.1.3
       nanoid: 3.3.11
       secure-json-parse: 2.7.0
-      zod: 3.25.20
+      zod: 3.25.21
     dev: false
 
   /@ai-sdk/provider@1.1.3:
@@ -335,7 +335,7 @@ packages:
       json-schema: 0.4.0
     dev: false
 
-  /@ai-sdk/react@1.2.12(react@19.1.0)(zod@3.25.20):
+  /@ai-sdk/react@1.2.12(react@19.1.0)(zod@3.25.21):
     resolution: {integrity: sha512-jK1IZZ22evPZoQW3vlkZ7wvjYGYF+tRBKXtrcolduIkQ/m/sOAVcVeVDUDvh1T91xCnWCdUGCPZg2avZ90mv3g==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -345,24 +345,24 @@ packages:
       zod:
         optional: true
     dependencies:
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.20)
-      '@ai-sdk/ui-utils': 1.2.11(zod@3.25.20)
+      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.21)
+      '@ai-sdk/ui-utils': 1.2.11(zod@3.25.21)
       react: 19.1.0
       swr: 2.3.3(react@19.1.0)
       throttleit: 2.1.0
-      zod: 3.25.20
+      zod: 3.25.21
     dev: false
 
-  /@ai-sdk/ui-utils@1.2.11(zod@3.25.20):
+  /@ai-sdk/ui-utils@1.2.11(zod@3.25.21):
     resolution: {integrity: sha512-3zcwCc8ezzFlwp3ZD15wAPjf2Au4s3vAbKsXQVyhxODHcmu0iyPO2Eua6D/vicq/AUm/BAo60r97O6HU+EI0+w==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.23.8
     dependencies:
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.20)
-      zod: 3.25.20
-      zod-to-json-schema: 3.24.5(zod@3.25.20)
+      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.21)
+      zod: 3.25.21
+      zod-to-json-schema: 3.24.5(zod@3.25.21)
     dev: false
 
   /@alloc/quick-lru@5.2.0:
@@ -1140,7 +1140,7 @@ packages:
       - encoding
     dev: false
 
-  /@browserbasehq/stagehand@1.14.0(@playwright/test@1.52.0)(deepmerge@4.3.1)(dotenv@16.5.0)(openai@4.103.0)(zod@3.25.20):
+  /@browserbasehq/stagehand@1.14.0(@playwright/test@1.52.0)(deepmerge@4.3.1)(dotenv@16.5.0)(openai@4.103.0)(zod@3.25.21):
     resolution: {integrity: sha512-Hi/EzgMFWz+FKyepxHTrqfTPjpsuBS4zRy3e9sbMpBgLPv+9c0R+YZEvS7Bw4mTS66QtvvURRT6zgDGFotthVQ==}
     peerDependencies:
       '@playwright/test': ^1.42.1
@@ -1154,10 +1154,10 @@ packages:
       '@playwright/test': 1.52.0
       deepmerge: 4.3.1
       dotenv: 16.5.0
-      openai: 4.103.0(zod@3.25.20)
+      openai: 4.103.0(zod@3.25.21)
       ws: 8.18.2
-      zod: 3.25.20
-      zod-to-json-schema: 3.24.5(zod@3.25.20)
+      zod: 3.25.21
+      zod-to-json-schema: 3.24.5(zod@3.25.21)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -1295,7 +1295,7 @@ packages:
       '@graphql-yoga/plugin-defer-stream': 3.13.4(graphql-yoga@5.13.4)(graphql@16.11.0)
       '@langchain/community': 0.3.44(@browserbasehq/stagehand@1.14.0)(@ibm-cloud/watsonx-ai@1.6.6)(@langchain/core@0.3.57)(axios@1.9.0)(ibm-cloud-sdk-core@5.3.2)(openai@4.103.0)
       '@langchain/core': 0.3.57(openai@4.103.0)
-      '@langchain/google-gauth': 0.1.8(@langchain/core@0.3.57)(zod@3.25.20)
+      '@langchain/google-gauth': 0.1.8(@langchain/core@0.3.57)(zod@3.25.21)
       '@langchain/langgraph-sdk': 0.0.70(@langchain/core@0.3.57)(react@19.1.0)
       '@langchain/openai': 0.4.9(@langchain/core@0.3.57)
       class-transformer: 0.5.1
@@ -1306,14 +1306,14 @@ packages:
       graphql-yoga: 5.13.4(graphql@16.11.0)
       groq-sdk: 0.5.0
       langchain: 0.3.27(@langchain/core@0.3.57)(axios@1.9.0)(openai@4.103.0)
-      openai: 4.103.0(zod@3.25.20)
+      openai: 4.103.0(zod@3.25.21)
       partial-json: 0.1.7
       pino: 9.7.0
       pino-pretty: 11.3.0
       reflect-metadata: 0.2.2
       rxjs: 7.8.2
       type-graphql: 2.0.0-rc.1(class-validator@0.14.2)(graphql-scalars@1.24.2)(graphql@16.11.0)
-      zod: 3.25.20
+      zod: 3.25.21
     transitivePeerDependencies:
       - '@arcjet/redact'
       - '@aws-crypto/sha256-js'
@@ -1469,8 +1469,8 @@ packages:
       chalk: 4.1.2
       graphql: 16.11.0
       uuid: 10.0.0
-      zod: 3.25.20
-      zod-to-json-schema: 3.24.5(zod@3.25.20)
+      zod: 3.25.21
+      zod-to-json-schema: 3.24.5(zod@3.25.21)
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -2431,7 +2431,7 @@ packages:
       youtubei.js:
         optional: true
     dependencies:
-      '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.52.0)(deepmerge@4.3.1)(dotenv@16.5.0)(openai@4.103.0)(zod@3.25.20)
+      '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.52.0)(deepmerge@4.3.1)(dotenv@16.5.0)(openai@4.103.0)(zod@3.25.21)
       '@ibm-cloud/watsonx-ai': 1.6.6
       '@langchain/core': 0.3.57(openai@4.103.0)
       '@langchain/openai': 0.4.9(@langchain/core@0.3.57)
@@ -2443,10 +2443,10 @@ packages:
       js-yaml: 4.1.0
       langchain: 0.3.27(@langchain/core@0.3.57)(axios@1.9.0)(openai@4.103.0)
       langsmith: 0.3.29(openai@4.103.0)
-      openai: 4.103.0(zod@3.25.20)
+      openai: 4.103.0(zod@3.25.21)
       uuid: 10.0.0
-      zod: 3.25.20
-      zod-to-json-schema: 3.24.5(zod@3.25.20)
+      zod: 3.25.21
+      zod-to-json-schema: 3.24.5(zod@3.25.21)
     transitivePeerDependencies:
       - '@langchain/anthropic'
       - '@langchain/aws'
@@ -2480,13 +2480,13 @@ packages:
       p-queue: 6.6.2
       p-retry: 4.6.2
       uuid: 10.0.0
-      zod: 3.25.20
-      zod-to-json-schema: 3.24.5(zod@3.25.20)
+      zod: 3.25.21
+      zod-to-json-schema: 3.24.5(zod@3.25.21)
     transitivePeerDependencies:
       - openai
     dev: false
 
-  /@langchain/google-common@0.1.8(@langchain/core@0.3.57)(zod@3.25.20):
+  /@langchain/google-common@0.1.8(@langchain/core@0.3.57)(zod@3.25.21):
     resolution: {integrity: sha512-8auqWw2PMPhcHQHS+nMN3tVZrUPgSLckUaFeOHDOeSBiDvBd4KCybPwyl2oCwMDGvmyIxvOOckkMdeGaJ92vpQ==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -2494,19 +2494,19 @@ packages:
     dependencies:
       '@langchain/core': 0.3.57(openai@4.103.0)
       uuid: 10.0.0
-      zod-to-json-schema: 3.24.5(zod@3.25.20)
+      zod-to-json-schema: 3.24.5(zod@3.25.21)
     transitivePeerDependencies:
       - zod
     dev: false
 
-  /@langchain/google-gauth@0.1.8(@langchain/core@0.3.57)(zod@3.25.20):
+  /@langchain/google-gauth@0.1.8(@langchain/core@0.3.57)(zod@3.25.21):
     resolution: {integrity: sha512-2QK7d5SQMrnSv7X4j05BGfO74hiA8FJuNwSsQKZvzlGoVnNXil3x2aqD5V+zsYOPpxhkDCpNlmh2Pue2Wzy1rQ==}
     engines: {node: '>=18'}
     peerDependencies:
       '@langchain/core': '>=0.2.21 <0.4.0'
     dependencies:
       '@langchain/core': 0.3.57(openai@4.103.0)
-      '@langchain/google-common': 0.1.8(@langchain/core@0.3.57)(zod@3.25.20)
+      '@langchain/google-common': 0.1.8(@langchain/core@0.3.57)(zod@3.25.21)
       google-auth-library: 8.9.0
     transitivePeerDependencies:
       - encoding
@@ -2541,9 +2541,9 @@ packages:
     dependencies:
       '@langchain/core': 0.3.57(openai@4.103.0)
       js-tiktoken: 1.0.20
-      openai: 4.103.0(zod@3.25.20)
-      zod: 3.25.20
-      zod-to-json-schema: 3.24.5(zod@3.25.20)
+      openai: 4.103.0(zod@3.25.21)
+      zod: 3.25.21
+      zod-to-json-schema: 3.24.5(zod@3.25.21)
     transitivePeerDependencies:
       - encoding
       - ws
@@ -2584,22 +2584,22 @@ packages:
       '@lukeed/csprng': 1.1.0
     dev: false
 
-  /@mastra/client-js@0.10.0(@mastra/core@0.10.0)(zod@3.25.20):
+  /@mastra/client-js@0.10.0(@mastra/core@0.10.0)(zod@3.25.21):
     resolution: {integrity: sha512-d0eTY//h1BcXPvn/Vl/Ki0W/rO89T7SPVMmLkUxOzfx/gD+3Pvntpw/bMOY/hopXyEndJ6Z94VuRFv0u7QBmEg==}
     peerDependencies:
       '@mastra/core': ^0.10.0
       zod: ^3.0.0
     dependencies:
       '@ag-ui/client': 0.0.27
-      '@ai-sdk/ui-utils': 1.2.11(zod@3.25.20)
-      '@mastra/core': 0.10.0(openapi-types@12.1.3)(react@19.1.0)(zod@3.25.20)
+      '@ai-sdk/ui-utils': 1.2.11(zod@3.25.21)
+      '@mastra/core': 0.10.0(openapi-types@12.1.3)(react@19.1.0)(zod@3.25.21)
       json-schema: 0.4.0
       rxjs: 7.8.1
-      zod: 3.25.20
-      zod-to-json-schema: 3.24.5(zod@3.25.20)
+      zod: 3.25.21
+      zod-to-json-schema: 3.24.5(zod@3.25.21)
     dev: false
 
-  /@mastra/core@0.10.0(openapi-types@12.1.3)(react@19.1.0)(zod@3.25.20):
+  /@mastra/core@0.10.0(openapi-types@12.1.3)(react@19.1.0)(zod@3.25.21):
     resolution: {integrity: sha512-vu5Y21qUz0yzejLnQIH6ZwpEi6Nk0UypwpY9bYwHcyxtdUGkpexnJvZLSfmEiKAiLcMGSxyPTUh120JMweX/CA==}
     engines: {node: '>=20'}
     peerDependencies:
@@ -2619,12 +2619,12 @@ packages:
       '@opentelemetry/sdk-trace-node': 2.0.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.34.0
       '@sindresorhus/slugify': 2.2.1
-      ai: 4.3.16(react@19.1.0)(zod@3.25.20)
+      ai: 4.3.16(react@19.1.0)(zod@3.25.21)
       cohere-ai: 7.17.1
       date-fns: 3.6.0
       dotenv: 16.5.0
       hono: 4.7.10
-      hono-openapi: 0.4.8(hono@4.7.10)(openapi-types@12.1.3)(zod@3.25.20)
+      hono-openapi: 0.4.8(hono@4.7.10)(openapi-types@12.1.3)(zod@3.25.21)
       json-schema: 0.4.0
       json-schema-to-zod: 2.6.1
       pino: 9.7.0
@@ -2632,9 +2632,9 @@ packages:
       radash: 12.1.0
       sift: 17.1.3
       xstate: 5.19.3
-      zod: 3.25.20
+      zod: 3.25.21
       zod-from-json-schema: 0.0.5
-      zod-to-json-schema: 3.24.5(zod@3.25.20)
+      zod-to-json-schema: 3.24.5(zod@3.25.21)
     transitivePeerDependencies:
       - '@hono/arktype-validator'
       - '@hono/effect-validator'
@@ -6513,7 +6513,7 @@ packages:
       humanize-ms: 1.2.1
     dev: false
 
-  /ai@4.3.16(react@19.1.0)(zod@3.25.20):
+  /ai@4.3.16(react@19.1.0)(zod@3.25.21):
     resolution: {integrity: sha512-KUDwlThJ5tr2Vw0A1ZkbDKNME3wzWhuVfAOwIvFUzl1TPVDFAXDFTXio3p+jaKneB+dKNCvFFlolYmmgHttG1g==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -6524,13 +6524,13 @@ packages:
         optional: true
     dependencies:
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.20)
-      '@ai-sdk/react': 1.2.12(react@19.1.0)(zod@3.25.20)
-      '@ai-sdk/ui-utils': 1.2.11(zod@3.25.20)
+      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.21)
+      '@ai-sdk/react': 1.2.12(react@19.1.0)(zod@3.25.21)
+      '@ai-sdk/ui-utils': 1.2.11(zod@3.25.21)
       '@opentelemetry/api': 1.9.0
       jsondiffpatch: 0.6.0
       react: 19.1.0
-      zod: 3.25.20
+      zod: 3.25.21
     dev: false
 
   /ansi-regex@5.0.1:
@@ -8166,7 +8166,7 @@ packages:
     resolution: {integrity: sha512-PDEfEF102G23vHmPhLyPboFCD+BkMGu+GuJe2d9/eH4FsCwvgBpnc9n0pGE+ffKdph38s6foEZiEjdgHdzp+IA==}
     dev: false
 
-  /hono-openapi@0.4.8(hono@4.7.10)(openapi-types@12.1.3)(zod@3.25.20):
+  /hono-openapi@0.4.8(hono@4.7.10)(openapi-types@12.1.3)(zod@3.25.21):
     resolution: {integrity: sha512-LYr5xdtD49M7hEAduV1PftOMzuT8ZNvkyWfh1DThkLsIr4RkvDb12UxgIiFbwrJB6FLtFXLoOZL9x4IeDk2+VA==}
     peerDependencies:
       '@hono/arktype-validator': ^2.0.0
@@ -8214,7 +8214,7 @@ packages:
       hono: 4.7.10
       json-schema-walker: 2.0.0
       openapi-types: 12.1.3
-      zod: 3.25.20
+      zod: 3.25.21
     dev: false
 
   /hono@4.7.10:
@@ -8711,8 +8711,8 @@ packages:
       p-retry: 4.6.2
       uuid: 10.0.0
       yaml: 2.8.0
-      zod: 3.25.20
-      zod-to-json-schema: 3.24.5(zod@3.25.20)
+      zod: 3.25.21
+      zod-to-json-schema: 3.24.5(zod@3.25.21)
     transitivePeerDependencies:
       - encoding
       - openai
@@ -8730,7 +8730,7 @@ packages:
       '@types/uuid': 10.0.0
       chalk: 4.1.2
       console-table-printer: 2.12.1
-      openai: 4.103.0(zod@3.25.20)
+      openai: 4.103.0(zod@3.25.21)
       p-queue: 6.6.2
       p-retry: 4.6.2
       semver: 7.7.2
@@ -9948,7 +9948,7 @@ packages:
       is-wsl: 2.2.0
     dev: true
 
-  /openai@4.103.0(zod@3.25.20):
+  /openai@4.103.0(zod@3.25.21):
     resolution: {integrity: sha512-eWcz9kdurkGOFDtd5ySS5y251H2uBgq9+1a2lTBnjMMzlexJ40Am5t6Mu76SSE87VvitPa0dkIAp75F+dZVC0g==}
     hasBin: true
     peerDependencies:
@@ -9967,7 +9967,7 @@ packages:
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
       node-fetch: 2.7.0
-      zod: 3.25.20
+      zod: 3.25.21
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -12145,19 +12145,19 @@ packages:
   /zod-from-json-schema@0.0.5:
     resolution: {integrity: sha512-zYEoo86M1qpA1Pq6329oSyHLS785z/mTwfr9V1Xf/ZLhuuBGaMlDGu/pDVGVUe4H4oa1EFgWZT53DP0U3oT9CQ==}
     dependencies:
-      zod: 3.25.20
+      zod: 3.25.21
     dev: false
 
-  /zod-to-json-schema@3.24.5(zod@3.25.20):
+  /zod-to-json-schema@3.24.5(zod@3.25.21):
     resolution: {integrity: sha512-/AuWwMP+YqiPbsJx5D6TfgRTc4kTLjsh5SOcd4bLsfUg2RcEXrFMJl1DGgdHy2aCfsIA/cr/1JM0xcB2GZji8g==}
     peerDependencies:
       zod: ^3.24.1
     dependencies:
-      zod: 3.25.20
+      zod: 3.25.21
     dev: false
 
-  /zod@3.25.20:
-    resolution: {integrity: sha512-z03fqpTMDF1G02VLKUMt6vyACE7rNWkh3gpXVHgPTw28NPtDFRGvcpTtPwn2kMKtQ0idtYJUTxchytmnqYswcw==}
+  /zod@3.25.21:
+    resolution: {integrity: sha512-k3MXcS5jrVo00Irs53CngVH4gHL1LgcCfOd9fOmZ7Pq/BP8eBop0P5RJDX5SsKchuxTMewJI0/AuK7MdD6ePXw==}
     dev: false
 
   /zustand@4.5.7(@types/react@19.1.5)(react@19.1.0):

@@ -159,7 +159,7 @@ const ChatUI = () => {
             <Button
               type="submit"
               disabled={!input.trim() || isLoading || !activeChat}
-              className="absolute bottom-2 right-2 h-10 w-10 p-0 rounded-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 transition-colors duration-200"
+              className="absolute top-1/2 -translate-y-1/2 right-2 h-10 w-10 p-0 rounded-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 transition-colors duration-200"
             >
               <Send className="h-5 w-5" />
               <span className="sr-only">Send</span>
