@@ -7,7 +7,8 @@ export interface GeneratedImage {
   title: string;
   prompt: string;
   imageUrl: string;
-  creationDate: string;
+  thumbnail?: string;
+  createdAt: Date;
   favorite: boolean;
   model: string;
   size: string;
@@ -16,6 +17,7 @@ export interface GeneratedImage {
 // Define store state interface
 interface ImagesState {
   images: GeneratedImage[];
+  activeImage: string | null;
   isGenerating: boolean;
   generationProgress: number;
   
@@ -24,6 +26,8 @@ interface ImagesState {
   generateImage: (prompt: string, model: string, size: string) => Promise<void>;
   deleteImage: (id: string) => void;
   searchImages: (query: string) => GeneratedImage[];
+  setActiveImage: (id: string) => void;
+  createNewImageSession: () => void;
 }
 
 // Create the store
@@ -35,7 +39,8 @@ export const useImagesStore = create<ImagesState>((set, get) => ({
       title: 'Mountain Landscape',
       prompt: 'A beautiful mountain landscape with snow-capped peaks and a clear blue sky',
       imageUrl: 'https://images.pexels.com/photos/1366909/pexels-photo-1366909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      creationDate: new Date('2023-05-15').toISOString(),
+      thumbnail: 'https://images.pexels.com/photos/1366909/pexels-photo-1366909.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&dpr=2',
+      createdAt: new Date('2023-05-15'),
       favorite: true,
       model: 'stable-diffusion-xl',
       size: '1024x1024'
@@ -45,7 +50,8 @@ export const useImagesStore = create<ImagesState>((set, get) => ({
       title: 'Futuristic City',
       prompt: 'A futuristic city with flying cars and tall skyscrapers',
       imageUrl: 'https://images.pexels.com/photos/1563256/pexels-photo-1563256.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      creationDate: new Date('2023-06-10').toISOString(),
+      thumbnail: 'https://images.pexels.com/photos/1563256/pexels-photo-1563256.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&dpr=2',
+      createdAt: new Date('2023-06-10'),
       favorite: false,
       model: 'dall-e-3',
       size: '1024x1024'
@@ -53,108 +59,133 @@ export const useImagesStore = create<ImagesState>((set, get) => ({
     {
       id: '3',
       title: 'Abstract Art',
-      prompt: 'Abstract art with vibrant colors and geometric shapes',
-      imageUrl: 'https://images.pexels.com/photos/2110951/pexels-photo-2110951.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      creationDate: new Date('2023-06-22').toISOString(),
-      favorite: true,
-      model: 'flux-1.1-pro',
-      size: '1024x768'
+      prompt: 'An abstract painting with vibrant colors and geometric shapes',
+      imageUrl: 'https://images.pexels.com/photos/1585325/pexels-photo-1585325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      thumbnail: 'https://images.pexels.com/photos/1585325/pexels-photo-1585325.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&dpr=2',
+      createdAt: new Date('2023-06-22'),
+      favorite: false,
+      model: 'midjourney',
+      size: '512x512'
     },
     {
       id: '4',
       title: 'Underwater Scene',
-      prompt: 'A colorful underwater scene with coral reefs and tropical fish',
-      imageUrl: 'https://images.pexels.com/photos/3801990/pexels-photo-3801990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      creationDate: new Date('2023-07-05').toISOString(),
-      favorite: false,
-      model: 'stable-diffusion-3',
-      size: '768x1024'
+      prompt: 'A vibrant underwater scene with coral reefs and tropical fish',
+      imageUrl: 'https://images.pexels.com/photos/128756/pexels-photo-128756.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      thumbnail: 'https://images.pexels.com/photos/128756/pexels-photo-128756.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&dpr=2',
+      createdAt: new Date('2023-07-05'),
+      favorite: true,
+      model: 'stable-diffusion-xl',
+      size: '1024x1024'
     },
     {
       id: '5',
       title: 'Space Exploration',
-      prompt: 'A spacecraft exploring a distant galaxy with colorful nebulae',
-      imageUrl: 'https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      creationDate: new Date('2023-07-18').toISOString(),
-      favorite: true,
+      prompt: 'A futuristic space station orbiting a distant planet',
+      imageUrl: 'https://images.pexels.com/photos/41162/moon-landing-apollo-11-nasa-buzz-aldrin-41162.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      thumbnail: 'https://images.pexels.com/photos/41162/moon-landing-apollo-11-nasa-buzz-aldrin-41162.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&dpr=2',
+      createdAt: new Date('2023-07-18'),
+      favorite: false,
       model: 'dall-e-3',
       size: '1024x1024'
     },
     {
       id: '6',
       title: 'Fantasy Castle',
-      prompt: 'A magical fantasy castle on a floating island with waterfalls',
-      imageUrl: 'https://images.pexels.com/photos/1619317/pexels-photo-1619317.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      creationDate: new Date('2023-08-02').toISOString(),
-      favorite: false,
-      model: 'stable-diffusion-xl',
-      size: '1024x768'
-    }
+      prompt: 'A magical castle on a floating island with waterfalls',
+      imageUrl: 'https://images.pexels.com/photos/2832034/pexels-photo-2832034.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      thumbnail: 'https://images.pexels.com/photos/2832034/pexels-photo-2832034.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&dpr=2',
+      createdAt: new Date('2023-08-02'),
+      favorite: true,
+      model: 'midjourney',
+      size: '1024x1024'
+    },
   ],
+  activeImage: null,
   isGenerating: false,
   generationProgress: 0,
   
   // Actions
-  toggleFavorite: (id) => set((state) => ({
-    images: state.images.map(image => 
-      image.id === id 
-        ? { ...image, favorite: !image.favorite } 
-        : image
-    )
-  })),
-  
+  toggleFavorite: (id) => {
+    set((state) => ({
+      images: state.images.map((image) =>
+        image.id === id ? { ...image, favorite: !image.favorite } : image
+      ),
+    }));
+  },
+
+  // Set active image
+  setActiveImage: (id) => {
+    set({ activeImage: id });
+  },
+
+  // Create a new image session
+  createNewImageSession: () => {
+    set({ activeImage: null });
+  },
+
+  // Generate a new image
   generateImage: async (prompt, model, size) => {
-    // Start generation
+    // Start generating
     set({ isGenerating: true, generationProgress: 0 });
-    
+
     // Simulate progress
     const progressInterval = setInterval(() => {
-      set((state) => ({
-        generationProgress: Math.min(state.generationProgress + 10, 90)
-      }));
+      const currentProgress = get().generationProgress;
+      if (currentProgress < 90) {
+        set({ generationProgress: currentProgress + 10 });
+      }
     }, 500);
-    
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 5000));
-    
-    clearInterval(progressInterval);
-    
-    // Complete generation
-    set((state) => ({
-      isGenerating: false,
-      generationProgress: 100,
-      images: [
-        {
-          id: uuidv4(),
-          title: prompt.split(' ').slice(0, 3).join(' '),
-          prompt,
-          imageUrl: 'https://images.pexels.com/photos/3075993/pexels-photo-3075993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', // Placeholder
-          creationDate: new Date().toISOString(),
-          favorite: false,
-          model,
-          size
-        },
-        ...state.images
-      ]
-    }));
-    
-    // Reset progress after a delay
-    setTimeout(() => {
-      set({ generationProgress: 0 });
-    }, 2000);
+
+    // Simulate API call with a delay
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
+      // Create a new image
+      const newImage = {
+        id: uuidv4(),
+        title: prompt.split(' ').slice(0, 3).join(' '),
+        prompt,
+        imageUrl: 'https://source.unsplash.com/random/1024x1024/?'+encodeURIComponent(prompt),
+        thumbnail: 'https://source.unsplash.com/random/300x300/?'+encodeURIComponent(prompt),
+        createdAt: new Date(),
+        favorite: false,
+        model,
+        size,
+      };
+
+      // Update state
+      set((state) => ({
+        isGenerating: false,
+        generationProgress: 100,
+        images: [newImage, ...state.images],
+        activeImage: newImage.id,
+      }));
+
+      // Clear interval
+      clearInterval(progressInterval);
+    } catch (error) {
+      console.error('Error generating image:', error);
+      set({ isGenerating: false, generationProgress: 0 });
+      clearInterval(progressInterval);
+    }
   },
-  
-  deleteImage: (id) => set((state) => ({
-    images: state.images.filter(image => image.id !== id)
-  })),
-  
+
+  // Delete an image
+  deleteImage: (id) => {
+    set((state) => ({ 
+      images: state.images.filter((image) => image.id !== id),
+      activeImage: state.activeImage === id ? null : state.activeImage,
+    }));
+  },
+
+  // Search images
   searchImages: (query) => {
-    const { images } = get();
     const lowerQuery = query.toLowerCase();
-    
-    return images.filter(image => 
-      image.title.toLowerCase().includes(lowerQuery) ||
-      image.prompt.toLowerCase().includes(lowerQuery)
+    return get().images.filter(
+      (image) =>
+        image.title.toLowerCase().includes(lowerQuery) ||
+        image.prompt.toLowerCase().includes(lowerQuery)
     );
-  }
+  },
 }));

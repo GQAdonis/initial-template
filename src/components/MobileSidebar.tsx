@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { X, Plus, MessageSquare, BookOpen, Image } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigationStore } from '@/stores/navigation-store';
+import ChatSidebar from './ChatSidebar';
+import ImageSidebar from './ImageSidebar';
 
 interface MobileSidebarProps {
   isOpen: boolean;
@@ -16,13 +18,6 @@ interface HomeItem {
   subtitle: string;
 }
 
-// Chat history item type
-interface ChatHistory {
-  id: string;
-  title: string;
-  date: Date;
-}
-
 // Library item type
 interface LibraryItem {
   id: string;
@@ -31,13 +26,7 @@ interface LibraryItem {
   date: Date;
 }
 
-// Image history item type
-interface ImageItem {
-  id: string;
-  title: string;
-  thumbnail: string;
-  date: Date;
-}
+// Image history items are now handled by the ImageSidebar component
 
 const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
   const { activePath } = useNavigationStore();
@@ -64,23 +53,9 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
     }
   ]);
 
-  const [chatHistory] = useState<ChatHistory[]>([
-    {
-      id: '1',
-      title: 'Brand strategy analysis',
-      date: new Date(2025, 4, 20)
-    },
-    {
-      id: '2',
-      title: 'Market research summary',
-      date: new Date(2025, 4, 21)
-    },
-    {
-      id: '3',
-      title: 'Product launch ideas',
-      date: new Date(2025, 4, 21)
-    }
-  ]);
+  // Chat history is now handled by the ChatSidebar component
+
+  // Image items are now handled by the ImageSidebar component
 
   const [libraryItems] = useState<LibraryItem[]>([
     {
@@ -103,31 +78,14 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
     }
   ]);
 
-  const [imageItems] = useState<ImageItem[]>([
-    {
-      id: '1',
-      title: 'Q2 Sales Performance',
-      thumbnail: 'https://images.pexels.com/photos/7947541/pexels-photo-7947541.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      date: new Date(2025, 3, 25)
-    },
-    {
-      id: '2',
-      title: 'Customer Acquisition Funnel',
-      thumbnail: 'https://images.pexels.com/photos/6476260/pexels-photo-6476260.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      date: new Date(2025, 4, 5)
-    },
-    {
-      id: '3',
-      title: 'Product Roadmap Visualization',
-      thumbnail: 'https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      date: new Date(2025, 4, 15)
-    }
-  ]);
-
   // Action button based on context
   const getActionButton = () => {
     let buttonText = '';
     let icon = null;
+    let onClick = () => {
+      console.log(`Action for ${activePath}`);
+      onClose();
+    };
     
     switch (activePath) {
       case '/':
@@ -135,17 +93,15 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
         icon = <Plus size={18} />;
         break;
       case '/chat':
-        buttonText = 'New Chat';
-        icon = <Plus size={18} />;
-        break;
+        // We don't need to render a button here as ChatSidebar has its own button
+        return null;
       case '/library':
         buttonText = 'Browse Library';
         icon = <BookOpen size={18} />;
         break;
       case '/images':
-        buttonText = 'Create Image';
-        icon = <Plus size={18} />;
-        break;
+        // We don't need to render a button here as ImageSidebar has its own button
+        return null;
       default:
         return null;
     }
@@ -154,10 +110,7 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
       <Button 
         variant="outline" 
         className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-medium flex items-center justify-center gap-2 border-none shadow-sm py-5"
-        onClick={() => {
-          console.log(`Action for ${activePath}`);
-          onClose();
-        }}
+        onClick={onClick}
       >
         {icon}
         <span>{buttonText}</span>
@@ -198,30 +151,8 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
       
       case '/chat':
         return (
-          <div className="px-4 py-2">
-            <h2 className="text-sm font-semibold mb-3 text-gray-500">Recent conversations</h2>
-            <ul className="space-y-2">
-              {chatHistory.map((chat) => (
-                <li key={chat.id}>
-                  <button
-                    className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 group flex items-start"
-                    onClick={() => {
-                      console.log(`Selected chat: ${chat.id}`);
-                      onClose();
-                    }}
-                  >
-                    <MessageSquare size={18} className="mr-3 mt-0.5 flex-shrink-0 text-gray-500" />
-                    <div className="overflow-hidden">
-                      <div className="truncate font-medium">{chat.title}</div>
-                      <div className="text-xs mt-1 text-gray-500">
-                        {chat.date.toLocaleDateString()}
-                      </div>
-                    </div>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+          // Use the independent ChatSidebar component for consistent UI across desktop and mobile
+          <ChatSidebar className="px-0 py-0" />
         );
       
       case '/library':
@@ -259,38 +190,8 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
       
       case '/images':
         return (
-          <div className="px-4 py-2">
-            <h2 className="text-sm font-semibold mb-3 text-gray-500">Image history</h2>
-            <ul className="space-y-3">
-              {imageItems.map((item) => (
-                <li key={item.id}>
-                  <button
-                    className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
-                    onClick={() => {
-                      console.log(`Selected image: ${item.id}`);
-                      onClose();
-                    }}
-                  >
-                    <div className="flex items-start">
-                      <div className="w-16 h-16 rounded overflow-hidden mr-3 flex-shrink-0">
-                        <img 
-                          src={item.thumbnail} 
-                          alt={item.title} 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div>
-                        <div className="font-medium">{item.title}</div>
-                        <div className="text-xs mt-1 text-gray-500">
-                          {item.date.toLocaleDateString()}
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+          // Use the independent ImageSidebar component for consistent UI across desktop and mobile
+          <ImageSidebar className="px-0 py-0" />
         );
       
       default:
