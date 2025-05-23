@@ -77,10 +77,10 @@ const Navigation = () => {
                   key={item.id}
                   onClick={() => handleNavClick(item.path)}
                   className={cn(
-                    "flex items-center rounded-lg px-3 py-2 transition-colors",
+                    "flex items-center rounded-lg py-2 transition-colors w-full",
                     activePath === item.path
-                      ? "bg-yellow-100 dark:bg-yellow-900/20 text-yellow-500"
-                      : "text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-300",
+                      ? "bg-yellow-100 dark:bg-yellow-900/20 text-yellow-500 px-3 mr-3"
+                      : "text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-300 px-3",
                     !sidebarExpanded && "justify-center"
                   )}
                 >
@@ -102,10 +102,10 @@ const Navigation = () => {
                   key={item.id}
                   onClick={() => handleNavClick(item.path)}
                   className={cn(
-                    "flex items-center rounded-lg px-3 py-2 transition-colors",
+                    "flex items-center rounded-lg py-2 transition-colors w-full",
                     activePath === item.path
-                      ? "bg-yellow-100 dark:bg-yellow-900/20 text-yellow-500"
-                      : "text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-300",
+                      ? "bg-yellow-100 dark:bg-yellow-900/20 text-yellow-500 px-3 mr-3"
+                      : "text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-300 px-3",
                     !sidebarExpanded && "justify-center"
                   )}
                 >

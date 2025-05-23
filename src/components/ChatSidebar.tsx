@@ -39,8 +39,10 @@ const ChatSidebar = ({ className = '' }: ChatSidebarProps) => {
             <li key={chat.id} className="group relative">
               <button
                 onClick={() => setActiveChat(chat.id)}
-                className={`flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none transition-all
-                  ${activeChat === chat.id ? 'bg-sidebar-accent font-medium text-sidebar-accent-foreground' : 'hover:bg-gray-100 dark:hover:bg-gray-800'}`}
+                className={`flex w-full items-center gap-2 overflow-hidden rounded-md text-left outline-none transition-all py-2
+                  ${activeChat === chat.id 
+                    ? 'bg-sidebar-accent font-medium text-sidebar-accent-foreground px-2 mr-3' 
+                    : 'hover:bg-gray-100 dark:hover:bg-gray-800 px-2'}`}
               >
                 <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
                   <span className="text-xs">💬</span>

@@ -42,10 +42,10 @@ const ImageSidebar = ({ className }: ImageSidebarProps) => {
               <button
                 onClick={() => setActiveImage(image.id)}
                 className={cn(
-                  "flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none transition-all",
+                  "flex w-full items-center gap-2 overflow-hidden rounded-md py-2 text-left outline-none transition-all",
                   activeImage === image.id
-                    ? "bg-sidebar-accent font-medium text-sidebar-accent-foreground"
-                    : "hover:bg-sidebar-hover hover:text-sidebar-hover-foreground"
+                    ? "bg-sidebar-accent font-medium text-sidebar-accent-foreground px-2 mr-3"
+                    : "hover:bg-sidebar-hover hover:text-sidebar-hover-foreground px-2"
                 )}
               >
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md overflow-hidden">

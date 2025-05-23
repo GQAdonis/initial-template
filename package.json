@@ -17,6 +17,10 @@
     "@copilotkit/react-core": "^1.8.13",
     "@copilotkit/react-ui": "^1.8.13",
     "@hookform/resolvers": "^5.0.1",
+    "@journeyapps/wa-sqlite": "^1.2.4",
+    "@powersync/common": "^1.30.0",
+    "@powersync/react": "^1.5.3",
+    "@powersync/web": "^1.20.1",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-aspect-ratio": "^1.1.7",
@@ -43,6 +47,7 @@
     "@radix-ui/react-toggle": "^1.1.9",
     "@radix-ui/react-toggle-group": "^1.1.10",
     "@radix-ui/react-tooltip": "^1.2.7",
+    "@tauri-apps/plugin-process": "^2.2.1",
     "ai": "^4.3.16",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.0.0",
@@ -55,6 +60,7 @@
     "react": "19.1.0",
     "react-day-picker": "8.10.1",
     "react-dom": "19.1.0",
+    "react-error-boundary": "^6.0.0",
     "react-hook-form": "^7.56.4",
     "react-resizable-panels": "^3.0.2",
     "recharts": "^2.15.3",
@@ -82,7 +88,9 @@
     "postcss": "^8.4.30",
     "tailwindcss": "^3.3.3",
     "typescript": "5.8.3",
-    "vite": "6.3.5"
+    "vite": "6.3.5",
+    "vite-plugin-top-level-await": "^1.5.0",
+    "vite-plugin-wasm": "^3.4.1"
   },
   "packageManager": "yarn@4.9.0+sha512.5f5f00843eae735dfab6f0442524603e987ceca55e98b36eb0120f4e58908e5b1406545321e46627dca97d15d562f23dc13fb96cabd4e6bc92d379f619001e4e"
 }
