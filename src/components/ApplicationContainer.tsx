@@ -9,6 +9,7 @@ import ImageLayout from './ImageLayout';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 interface ApplicationContainerProps {
   children?: React.ReactNode;
@@ -116,12 +117,14 @@ const ApplicationContainer: React.FC<ApplicationContainerProps> = ({ children })
                   </svg>
                   <h1 className="font-bold text-lg tracking-wide">ONE</h1>
                 </div>
-                <button 
+                <Button 
                   onClick={toggleSidebar}
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+                  variant="ghost"
+                  size="icon"
+                  className="rounded-full"
                 >
                   <X className="h-5 w-5" />
-                </button>
+                </Button>
               </div>
               
               <div className="flex flex-col h-full justify-between py-4">
