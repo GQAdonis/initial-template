@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
+import './styles/tauri.css';
 import { AssistantUIProvider } from './components/AssistantUIProvider';
 import AppProvider from './provider';
 

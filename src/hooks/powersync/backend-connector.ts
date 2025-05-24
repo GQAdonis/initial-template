@@ -1,7 +1,7 @@
 import {
     AbstractPowerSyncDatabase,
     PowerSyncBackendConnector
-} from '@powersync/web'
+} from '@powersync/common'
 
 export default class BackendConnector implements PowerSyncBackendConnector {
     constructor(
@@ -30,7 +30,9 @@ export default class BackendConnector implements PowerSyncBackendConnector {
 
         try {
             // TODO: Upload here
-
+            // You can access the transaction data with transaction.crud
+            // Example: const { inserts, updates, deletes } = transaction.crud
+            
             await transaction.complete()
         } catch (error: any) {
             if (shouldDiscardDataOnError(error)) {

@@ -175,7 +175,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@assistant-ui/react@npm:0.10.11":
+"@assistant-ui/react@npm:^0.10.11":
   version: 0.10.11
   resolution: "@assistant-ui/react@npm:0.10.11"
   dependencies:
@@ -1080,7 +1080,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@powersync/common@npm:1.30.0, @powersync/common@npm:^1.30.0":
+"@powersync/common@npm:^1.30.0":
   version: 1.30.0
   resolution: "@powersync/common@npm:1.30.0"
   dependencies:
@@ -1096,24 +1096,6 @@ __metadata:
     "@powersync/common": ^1.28.0
     react: "*"
   checksum: 10c0/91a5631a3ddf6f3727f8c58930c90a0e621a35b9e5a1d0be73e0f66a5117a606cbbef8ce6c1b030a7f392914948e1964fac42cde8672d3098331f54806470961
-  languageName: node
-  linkType: hard
-
-"@powersync/web@npm:^1.20.1":
-  version: 1.20.1
-  resolution: "@powersync/web@npm:1.20.1"
-  dependencies:
-    "@powersync/common": "npm:1.30.0"
-    async-mutex: "npm:^0.4.0"
-    bson: "npm:^6.6.0"
-    comlink: "npm:^4.4.2"
-    commander: "npm:^12.1.0"
-  peerDependencies:
-    "@journeyapps/wa-sqlite": ^1.2.4
-    "@powersync/common": ^1.30.0
-  bin:
-    powersync-web: bin/powersync.js
-  checksum: 10c0/e8647f6adbcc5701a39e1344088639a5a183c5320bba1e8f3d6703a7c73e7ad8e67c7cc208faebf22a1a2c50190e5d1beee2f0b1114e13feddac001e0736067c
   languageName: node
   linkType: hard
 
@@ -2723,7 +2705,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tauri-apps/api@npm:^2.0.0":
+"@tauri-apps/api@npm:^2.0.0, @tauri-apps/api@npm:^2.5.0":
   version: 2.5.0
   resolution: "@tauri-apps/api@npm:2.5.0"
   checksum: 10c0/8eeb28049d48f5f89a5419cdf313bb159305204b193a5f27ebddbe0704ff43037c8b2e78518de831d7393e00178f0c0ac66cef1a57b99c632de71eca29f562c0
@@ -2860,6 +2842,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tauri-apps/plugin-sql@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@tauri-apps/plugin-sql@npm:2.2.0"
+  dependencies:
+    "@tauri-apps/api": "npm:^2.0.0"
+  checksum: 10c0/688e58b71c1e293d5211cc0b652e52f0f9e1957e97469c628eb2cb496cf6257ae690d75cb2f5423f3e1d0a69cc7e45de38e892f736c30d7a1cfd36b7e957c0d5
+  languageName: node
+  linkType: hard
+
 "@types/babel__core@npm:^7.20.5":
   version: 7.20.5
   resolution: "@types/babel__core@npm:7.20.5"
@@ -2898,6 +2889,15 @@ __metadata:
   dependencies:
     "@babel/types": "npm:^7.20.7"
   checksum: 10c0/5386f0af44f8746b063b87418f06129a814e16bb2686965a575e9d7376b360b088b89177778d8c426012abc43dd1a2d8ec3218bfc382280c898682746ce2ffbd
+  languageName: node
+  linkType: hard
+
+"@types/better-sqlite3@npm:^7.6.13":
+  version: 7.6.13
+  resolution: "@types/better-sqlite3@npm:7.6.13"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/c4336e7b92343eb0e988ded007c53fa9887b98a38d61175226e86124a1a2c28b1a4e3892873c5041e350b7bfa2901f85c82db1542c4f0eed1d3a899682c92106
   languageName: node
   linkType: hard
 
@@ -3485,15 +3485,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async-mutex@npm:^0.4.0":
-  version: 0.4.1
-  resolution: "async-mutex@npm:0.4.1"
-  dependencies:
-    tslib: "npm:^2.4.0"
-  checksum: 10c0/3c412736c0bc4a9a2cfd948276a8caab8686aa615866a5bd20986e616f8945320acb310058a17afa1b31b8de6f634a78b7ec2217a33d7559b38f68bb85a95854
-  languageName: node
-  linkType: hard
-
 "at-least-node@npm:^1.0.0":
   version: 1.0.0
   resolution: "at-least-node@npm:1.0.0"
@@ -3540,6 +3531,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"better-sqlite3@npm:^8.0.0":
+  version: 8.7.0
+  resolution: "better-sqlite3@npm:8.7.0"
+  dependencies:
+    bindings: "npm:^1.5.0"
+    node-gyp: "npm:latest"
+    prebuild-install: "npm:^7.1.1"
+  checksum: 10c0/2583401b08531eee74c083c73f3a5902bc142b0e1c16de5b9caa92ee94f544e2cb512c214de2f762a6c83e593f26f70013214344a9ea66ace6d0619efbf04a1e
+  languageName: node
+  linkType: hard
+
 "big-integer@npm:1.6.x":
   version: 1.6.52
   resolution: "big-integer@npm:1.6.52"
@@ -3551,6 +3553,15 @@ __metadata:
   version: 2.3.0
   resolution: "binary-extensions@npm:2.3.0"
   checksum: 10c0/75a59cafc10fb12a11d510e77110c6c7ae3f4ca22463d52487709ca7f18f69d886aa387557cc9864fbdb10153d0bdb4caacabf11541f55e89ed6e18d12ece2b5
+  languageName: node
+  linkType: hard
+
+"bindings@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "bindings@npm:1.5.0"
+  dependencies:
+    file-uri-to-path: "npm:1.0.0"
+  checksum: 10c0/3dab2491b4bb24124252a91e656803eac24292473e56554e35bbfe3cc1875332cfa77600c3bac7564049dc95075bf6fcc63a4609920ff2d64d0fe405fcf0d4ba
   languageName: node
   linkType: hard
 
@@ -3620,13 +3631,6 @@ __metadata:
   bin:
     browserslist: cli.js
   checksum: 10c0/f4c1ce1a7d8fdfab5e5b88bb6e93d09e8a883c393f86801537a252da0362dbdcde4dbd97b318246c5d84c6607b2f6b47af732c1b000d6a8a881ee024bad29204
-  languageName: node
-  linkType: hard
-
-"bson@npm:^6.6.0":
-  version: 6.10.3
-  resolution: "bson@npm:6.10.3"
-  checksum: 10c0/15ad7a9b3bf8090add5fea1761b1ba7d75e5256efcfbb8c9ca448ca98e59c3b079c37c36c7aca0cc916236bd2d4684a5525c68f3d76da8a13d55dc230abbdd21
   languageName: node
   linkType: hard
 
@@ -3873,13 +3877,6 @@ __metadata:
   version: 1.1.4
   resolution: "color-name@npm:1.1.4"
   checksum: 10c0/a1a3f914156960902f46f7f56bc62effc6c94e84b2cae157a526b1c1f74b677a47ec602bf68a61abfa2b42d15b7c5651c6dbe72a43af720bc588dff885b10f95
-  languageName: node
-  linkType: hard
-
-"comlink@npm:^4.4.2":
-  version: 4.4.2
-  resolution: "comlink@npm:4.4.2"
-  checksum: 10c0/38aa1f455cf08e94aaa8fc494fd203cc0ef02ece6c21404b7931ce17567e8a72deacddab98aa5650cfd78332ff24c34610586f6fb27fd19dc77e753ed1980deb
   languageName: node
   linkType: hard
 
@@ -4682,6 +4679,13 @@ __metadata:
   dependencies:
     flat-cache: "npm:^3.0.4"
   checksum: 10c0/58473e8a82794d01b38e5e435f6feaf648e3f36fdb3a56e98f417f4efae71ad1c0d4ebd8a9a7c50c3ad085820a93fc7494ad721e0e4ebc1da3573f4e1c3c7cdd
+  languageName: node
+  linkType: hard
+
+"file-uri-to-path@npm:1.0.0":
+  version: 1.0.0
+  resolution: "file-uri-to-path@npm:1.0.0"
+  checksum: 10c0/3b545e3a341d322d368e880e1c204ef55f1d45cdea65f7efc6c6ce9e0c4d22d802d5629320eb779d006fe59624ac17b0e848d83cc5af7cd101f206cb704f5519
   languageName: node
   linkType: hard
 
@@ -7041,7 +7045,7 @@ __metadata:
   dependencies:
     "@ag-ui/core": "npm:^0.0.28"
     "@ai-sdk/openai": "npm:^1.3.22"
-    "@assistant-ui/react": "npm:0.10.11"
+    "@assistant-ui/react": "npm:^0.10.11"
     "@assistant-ui/react-ai-sdk": "npm:^0.10.10"
     "@assistant-ui/react-markdown": "npm:^0.10.3"
     "@capacitor/cli": "npm:7.2.0"
@@ -7051,7 +7055,6 @@ __metadata:
     "@journeyapps/wa-sqlite": "npm:^1.2.4"
     "@powersync/common": "npm:^1.30.0"
     "@powersync/react": "npm:^1.5.3"
-    "@powersync/web": "npm:^1.20.1"
     "@radix-ui/react-accordion": "npm:^1.2.11"
     "@radix-ui/react-alert-dialog": "npm:^1.1.14"
     "@radix-ui/react-aspect-ratio": "npm:^1.1.7"
@@ -7078,8 +7081,11 @@ __metadata:
     "@radix-ui/react-toggle": "npm:^1.1.9"
     "@radix-ui/react-toggle-group": "npm:^1.1.10"
     "@radix-ui/react-tooltip": "npm:^1.2.7"
+    "@tauri-apps/api": "npm:^2.5.0"
     "@tauri-apps/cli": "npm:2.5.0"
     "@tauri-apps/plugin-process": "npm:^2.2.1"
+    "@tauri-apps/plugin-sql": "npm:^2.2.0"
+    "@types/better-sqlite3": "npm:^7.6.13"
     "@types/node": "npm:22.15.21"
     "@types/react": "npm:19.1.5"
     "@types/react-dom": "npm:19.1.5"
@@ -7090,6 +7096,7 @@ __metadata:
     "@yao-pkg/pkg": "npm:^6.5.1"
     ai: "npm:^4.3.16"
     autoprefixer: "npm:^10.4.15"
+    better-sqlite3: "npm:^8.0.0"
     class-variance-authority: "npm:^0.7.1"
     clsx: "npm:^2.0.0"
     cmdk: "npm:^1.1.1"
@@ -8776,7 +8783,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.4.1, tslib@npm:^2.6.2, tslib@npm:^2.8.0, tslib@npm:^2.8.1":
+"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.1.0, tslib@npm:^2.4.1, tslib@npm:^2.6.2, tslib@npm:^2.8.0, tslib@npm:^2.8.1":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62

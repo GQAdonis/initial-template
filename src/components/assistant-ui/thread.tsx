@@ -253,7 +253,7 @@ const AssistantActionBar: FC = () => {
   );
 };
 
-const BranchPicker: FC<BranchPickerPrimitive.Root.Props> = ({
+const BranchPicker: FC<BranchPickerPrimitive.RootProps> = ({
   className,
   ...rest
 }) => {

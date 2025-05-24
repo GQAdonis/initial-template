@@ -75,3 +75,16 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+/* Tauri window dragging utilities */
+@layer utilities {
+  .tauri-drag-region {
+    -webkit-app-region: drag;
+    app-region: drag;
+  }
+  
+  .tauri-no-drag {
+    -webkit-app-region: no-drag;
+    app-region: no-drag;
+  }
+}

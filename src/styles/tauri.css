@@ -1,0 +1,81 @@
+/* Tauri-specific styles */
+
+/* Styles for Tauri window dragging */
+[data-tauri-drag-region] {
+  /* CSS to make the element draggable in Tauri */
+  -webkit-app-region: drag;
+  cursor: move;
+  /* Add fallback for browsers that don't support -webkit-app-region */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Disable dragging for specific elements inside the draggable region */
+[data-tauri-drag-region] button,
+[data-tauri-drag-region] input,
+[data-tauri-drag-region] a,
+[data-tauri-drag-region] [role="button"] {
+  -webkit-app-region: no-drag;
+  cursor: auto;
+  /* Ensure clickable elements remain clickable */
+  pointer-events: auto;
+}
+
+[data-tauri-drag-region] select,
+[data-tauri-drag-region] textarea,
+[data-tauri-drag-region] [role="button"],
+[data-tauri-drag-region] [tabindex="0"] {
+  -webkit-app-region: no-drag;
+}
+
+/* Window control styles */
+.window-controls {
+  display: flex;
+  gap: 8px;
+  -webkit-app-region: no-drag;
+}
+
+.window-control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+/* macOS style colors */
+.window-control:nth-child(1) {
+  background-color: #ffbd2e; /* Yellow for minimize */
+}
+
+.window-control:nth-child(2) {
+  background-color: #27c93f; /* Green for maximize */
+}
+
+.window-control:nth-child(3) {
+  background-color: #ff5f56; /* Red for close */
+}
+
+/* Show symbols on hover */
+.window-control svg {
+  width: 8px;
+  height: 8px;
+  color: rgba(0, 0, 0, 0);
+  transition: color 0.2s;
+}
+
+.window-controls:hover .window-control svg {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* Disabled state when window is not focused */
+.window-inactive .window-control {
+  background-color: #ddd;
+}
